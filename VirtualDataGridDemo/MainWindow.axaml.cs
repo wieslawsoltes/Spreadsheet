@@ -15,7 +15,7 @@ namespace VirtualDataGridDemo
 #endif
             var rowsItemsRepeater = this.FindControl<RowsItemsRepeater>("RowsItemsRepeater");
 
-            for (var c = 0; c < 10_000; c++)
+            for (var c = 0; c < 1_000_000; c++)
             {
                 var column = new Column()
                 {
