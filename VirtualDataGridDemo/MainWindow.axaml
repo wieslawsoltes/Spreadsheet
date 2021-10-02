@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:VirtualDataGridDemo"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VirtualDataGridDemo.MainWindow"
+        Width="800" Height="450" WindowStartupLocation="CenterScreen"
+        Title="VirtualDataGridDemo">
+
+    <c:RowsItemsRepeater Name="RowsItemsRepeater"
+                         Items="{Binding $self.Rows}">
+      <c:RowsItemsRepeater.Styles>
+        <Style Selector="ListBox">
+          <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Auto" />
+          <Setter Property="(ScrollViewer.VerticalScrollBarVisibility)" Value="Auto" />
+        </Style>
+        <Style Selector="ListBoxItem">
+          <Setter Property="Margin" Value="0" />
+          <Setter Property="Padding" Value="0" />
+        </Style>
+      </c:RowsItemsRepeater.Styles>
+      <c:RowsItemsRepeater.ItemsPanel>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel Orientation="Vertical"/>
+        </ItemsPanelTemplate>
+      </c:RowsItemsRepeater.ItemsPanel>
+      <c:RowsItemsRepeater.ItemTemplate>
+        <DataTemplate DataType="c:Row">
+          <c:CellsItemsRepeater Name="CellsItemsRepeater"
+                                Items="{Binding #RowsItemsRepeater.Columns}"
+                                Height="{Binding Height}">
+            <c:CellsItemsRepeater.Styles>
+              <Style Selector="ListBox">
+                <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Disabled" />
+                <Setter Property="(ScrollViewer.VerticalScrollBarVisibility)" Value="Disabled" />
+              </Style>
+              <Style Selector="ListBoxItem">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+              </Style>
+            </c:CellsItemsRepeater.Styles>
+            <c:CellsItemsRepeater.ItemsPanel>
+              <ItemsPanelTemplate>
+                <VirtualizingStackPanel Orientation="Horizontal"/>
+              </ItemsPanelTemplate>
+            </c:CellsItemsRepeater.ItemsPanel>
+            <c:CellsItemsRepeater.ItemTemplate>
+              <DataTemplate DataType="c:Column">
+                <c:Cell Width="{Binding Width}"
+                        Height="{Binding #CellsItemsRepeater.Bounds.Height}"/>
+              </DataTemplate>
+            </c:CellsItemsRepeater.ItemTemplate>
+          </c:CellsItemsRepeater>
+        </DataTemplate>
+      </c:RowsItemsRepeater.ItemTemplate>
+    </c:RowsItemsRepeater>
+
+</Window>
