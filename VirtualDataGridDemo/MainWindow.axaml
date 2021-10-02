@@ -26,7 +26,20 @@
             <c:CellsItemsRepeater.ItemTemplate>
               <DataTemplate DataType="c:Column">
                 <c:Cell Width="{Binding Width}"
-                        Height="{Binding #CellsItemsRepeater.Bounds.Height}" />
+                        Height="{Binding #CellsItemsRepeater.Bounds.Height}">
+                  <ToolTip.Tip>
+                    <StackPanel>
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Column: "></TextBlock>
+                        <TextBlock Text="{Binding Header}"/>
+                      </StackPanel>
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Row: "></TextBlock>
+                        <TextBlock Text="{Binding #CellsItemsRepeater.DataContext.Header}"/>
+                      </StackPanel>
+                    </StackPanel>
+                  </ToolTip.Tip>
+                </c:Cell>
               </DataTemplate>
             </c:CellsItemsRepeater.ItemTemplate>
           </c:CellsItemsRepeater>
