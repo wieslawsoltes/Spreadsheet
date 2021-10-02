@@ -8,52 +8,31 @@
         Width="800" Height="450" WindowStartupLocation="CenterScreen"
         Title="VirtualDataGridDemo">
 
+  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
     <c:RowsItemsRepeater Name="RowsItemsRepeater"
                          Items="{Binding $self.Rows}">
-      <c:RowsItemsRepeater.Styles>
-        <Style Selector="ListBox">
-          <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Auto" />
-          <Setter Property="(ScrollViewer.VerticalScrollBarVisibility)" Value="Auto" />
-        </Style>
-        <Style Selector="ListBoxItem">
-          <Setter Property="Margin" Value="0" />
-          <Setter Property="Padding" Value="0" />
-        </Style>
-      </c:RowsItemsRepeater.Styles>
-      <c:RowsItemsRepeater.ItemsPanel>
-        <ItemsPanelTemplate>
-          <VirtualizingStackPanel Orientation="Vertical"/>
-        </ItemsPanelTemplate>
-      </c:RowsItemsRepeater.ItemsPanel>
+      <c:RowsItemsRepeater.Layout>
+        <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Horizontal" />
+      </c:RowsItemsRepeater.Layout>
       <c:RowsItemsRepeater.ItemTemplate>
         <DataTemplate DataType="c:Row">
           <c:CellsItemsRepeater Name="CellsItemsRepeater"
                                 Items="{Binding #RowsItemsRepeater.Columns}"
                                 Height="{Binding Height}">
-            <c:CellsItemsRepeater.Styles>
-              <Style Selector="ListBox">
-                <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Disabled" />
-                <Setter Property="(ScrollViewer.VerticalScrollBarVisibility)" Value="Disabled" />
-              </Style>
-              <Style Selector="ListBoxItem">
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="Padding" Value="0" />
-              </Style>
-            </c:CellsItemsRepeater.Styles>
-            <c:CellsItemsRepeater.ItemsPanel>
-              <ItemsPanelTemplate>
-                <VirtualizingStackPanel Orientation="Horizontal"/>
-              </ItemsPanelTemplate>
-            </c:CellsItemsRepeater.ItemsPanel>
+            <c:CellsItemsRepeater.Layout>
+              <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
+            </c:CellsItemsRepeater.Layout>
             <c:CellsItemsRepeater.ItemTemplate>
               <DataTemplate DataType="c:Column">
                 <c:Cell Width="{Binding Width}"
-                        Height="{Binding #CellsItemsRepeater.Bounds.Height}"/>
+                        Height="{Binding #CellsItemsRepeater.Bounds.Height}" />
               </DataTemplate>
             </c:CellsItemsRepeater.ItemTemplate>
           </c:CellsItemsRepeater>
         </DataTemplate>
       </c:RowsItemsRepeater.ItemTemplate>
     </c:RowsItemsRepeater>
+  </ScrollViewer>
 
 </Window>
