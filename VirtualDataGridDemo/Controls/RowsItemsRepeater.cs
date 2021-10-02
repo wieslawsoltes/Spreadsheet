@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 
-namespace VirtualDataGridDemo
+namespace VirtualDataGridDemo.Controls
 {
     public class RowsItemsRepeater : ItemsRepeater
     {

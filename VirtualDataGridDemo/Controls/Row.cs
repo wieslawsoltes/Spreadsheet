@@ -1,6 +1,6 @@
 using Avalonia;
 
-namespace VirtualDataGridDemo
+namespace VirtualDataGridDemo.Controls
 {
     public class Row : AvaloniaObject
     {

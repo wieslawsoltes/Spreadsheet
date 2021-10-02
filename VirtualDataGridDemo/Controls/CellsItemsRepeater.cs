@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace VirtualDataGridDemo
+namespace VirtualDataGridDemo.Controls
 {
     public class CellsItemsRepeater : ItemsRepeater
     {

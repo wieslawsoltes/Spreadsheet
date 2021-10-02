@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
-namespace VirtualDataGridDemo
+namespace VirtualDataGridDemo.Controls
 {
     public class Cell : Control
     {
