@@ -20,7 +20,7 @@ namespace VirtualDataGridDemo
                 var column = new Column()
                 {
                     Header = $"{c}",
-                    Width = 50
+                    Width = 70
                 };
                 rowsItemsRepeater.Columns.Add(column);
             }
