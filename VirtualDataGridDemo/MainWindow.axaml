@@ -8,44 +8,121 @@
         Width="800" Height="450" WindowStartupLocation="CenterScreen"
         Title="VirtualDataGridDemo">
 
-  <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto">
-    <c:RowsItemsRepeater Name="RowsItemsRepeater"
-                         Items="{Binding $self.Rows}">
-      <c:RowsItemsRepeater.Layout>
-        <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Horizontal" />
-      </c:RowsItemsRepeater.Layout>
-      <c:RowsItemsRepeater.ItemTemplate>
-        <DataTemplate DataType="c:Row">
-          <c:CellsItemsRepeater Name="CellsItemsRepeater"
-                                Items="{Binding #RowsItemsRepeater.Columns}"
-                                Height="{Binding Height}">
-            <c:CellsItemsRepeater.Layout>
-              <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
-            </c:CellsItemsRepeater.Layout>
-            <c:CellsItemsRepeater.ItemTemplate>
-              <DataTemplate DataType="c:Column">
-                <c:Cell Width="{Binding Width}"
-                        Height="{Binding #CellsItemsRepeater.Bounds.Height}">
-                  <ToolTip.Tip>
-                    <StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Column: "></TextBlock>
-                        <TextBlock Text="{Binding Header}"/>
+  <Window.Styles>
+    <Style Selector="ScrollViewer.default">
+      <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+    <Style Selector="ScrollViewer.default /template/ ScrollContentPresenter">
+      <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
+    <Style Selector="c|ColumnHeadersItemsRepeater">
+      <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
+    <Style Selector="c|RowHeadersItemsRepeater">
+      <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
+    <Style Selector="c|RowsItemsRepeater">
+      <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
+    <Style Selector="c|CellsItemsRepeater">
+      <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
+  </Window.Styles>
+
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+
+    <ScrollViewer Name="ColumnHeadersScrollViewer"
+                  Classes="default"
+                  HorizontalScrollBarVisibility="Hidden"
+                  VerticalScrollBarVisibility="Disabled"
+                  Grid.Column="1"
+                  Grid.Row="0">
+      <c:ColumnHeadersItemsRepeater Name="ColumnHeadersItemsRepeater"
+                                    Items="{Binding #RowsItemsRepeater.Columns}">
+        <c:ColumnHeadersItemsRepeater.Layout>
+          <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
+        </c:ColumnHeadersItemsRepeater.Layout>
+        <c:ColumnHeadersItemsRepeater.ItemTemplate>
+          <DataTemplate DataType="c:Column">
+            <Border Width="{Binding Width}" 
+                    Height="24">
+              <TextBlock Text="{Binding Header}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"/>
+            </Border>
+          </DataTemplate>
+        </c:ColumnHeadersItemsRepeater.ItemTemplate>
+      </c:ColumnHeadersItemsRepeater>
+    </ScrollViewer>
+
+    <ScrollViewer Name="RowHeadersScrollViewer"
+                  Classes="default"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Hidden"
+                  Grid.Column="0"
+                  Grid.Row="1">
+      <c:RowHeadersItemsRepeater Name="RowHeadersItemsRepeater"
+                                 Items="{Binding #RowsItemsRepeater.Rows}">
+        <c:RowHeadersItemsRepeater.Layout>
+          <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Horizontal" />
+        </c:RowHeadersItemsRepeater.Layout>
+        <c:RowHeadersItemsRepeater.ItemTemplate>
+          <DataTemplate DataType="c:Row">
+            <Border Width="50" 
+                    Height="{Binding Height}">
+              <TextBlock Text="{Binding Header}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"/>
+            </Border>
+          </DataTemplate>
+        </c:RowHeadersItemsRepeater.ItemTemplate>
+      </c:RowHeadersItemsRepeater>
+    </ScrollViewer>
+
+    <ScrollViewer Name="RowsItemsScrollViewer"
+                  Classes="default"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.Column="1"
+                  Grid.Row="1">
+      <c:RowsItemsRepeater Name="RowsItemsRepeater"
+                           Items="{Binding $self.Rows}">
+        <c:RowsItemsRepeater.Layout>
+          <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Horizontal" />
+        </c:RowsItemsRepeater.Layout>
+        <c:RowsItemsRepeater.ItemTemplate>
+          <DataTemplate DataType="c:Row">
+            <c:CellsItemsRepeater Name="CellsItemsRepeater"
+                                  Items="{Binding #RowsItemsRepeater.Columns}"
+                                  Height="{Binding Height}">
+              <c:CellsItemsRepeater.Layout>
+                <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
+              </c:CellsItemsRepeater.Layout>
+              <c:CellsItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="c:Column">
+                  <c:Cell Width="{Binding Width}"
+                          Height="{Binding #CellsItemsRepeater.Bounds.Height}">
+                    <ToolTip.Tip>
+                      <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Text="Column: "></TextBlock>
+                          <TextBlock Text="{Binding Header}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Text="Row: "></TextBlock>
+                          <TextBlock Text="{Binding #CellsItemsRepeater.DataContext.Header}"/>
+                        </StackPanel>
                       </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Row: "></TextBlock>
-                        <TextBlock Text="{Binding #CellsItemsRepeater.DataContext.Header}"/>
-                      </StackPanel>
-                    </StackPanel>
-                  </ToolTip.Tip>
-                </c:Cell>
-              </DataTemplate>
-            </c:CellsItemsRepeater.ItemTemplate>
-          </c:CellsItemsRepeater>
-        </DataTemplate>
-      </c:RowsItemsRepeater.ItemTemplate>
-    </c:RowsItemsRepeater>
-  </ScrollViewer>
+                    </ToolTip.Tip>
+                  </c:Cell>
+                </DataTemplate>
+              </c:CellsItemsRepeater.ItemTemplate>
+            </c:CellsItemsRepeater>
+          </DataTemplate>
+        </c:RowsItemsRepeater.ItemTemplate>
+      </c:RowsItemsRepeater>
+    </ScrollViewer>
+    
+  </Grid>
 
 </Window>
