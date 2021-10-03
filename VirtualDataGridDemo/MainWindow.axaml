@@ -68,7 +68,7 @@
         </c:RowHeadersItemsRepeater.Layout>
         <c:RowHeadersItemsRepeater.ItemTemplate>
           <DataTemplate DataType="c:Row">
-            <Border Width="50" 
+            <Border Width="70" 
                     Height="{Binding Height}">
               <TextBlock Text="{Binding Header}"
                          HorizontalAlignment="Center"
