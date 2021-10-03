@@ -5,7 +5,7 @@ using Avalonia.Media.Immutable;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class Cell : Control
+    public class Cell : Decorator
     {
         public override void Render(DrawingContext context)
         {
