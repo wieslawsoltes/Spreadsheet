@@ -29,6 +29,11 @@
     </Style>
   </Window.Styles>
 
+  <Window.Resources>
+    <x:Double x:Key="ColumnWidth">130</x:Double>
+    <x:Double x:Key="RowHeight">28</x:Double>
+  </Window.Resources>
+
   <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
 
     <ScrollViewer Name="ColumnHeadersScrollViewer"
@@ -45,7 +50,7 @@
         <c:ColumnHeadersItemsRepeater.ItemTemplate>
           <DataTemplate DataType="c:Column">
             <Border Width="{Binding Width}" 
-                    Height="24">
+                    Height="{StaticResource RowHeight}">
               <TextBlock Text="{Binding Header}"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"/>
@@ -68,7 +73,7 @@
         </c:RowHeadersItemsRepeater.Layout>
         <c:RowHeadersItemsRepeater.ItemTemplate>
           <DataTemplate DataType="c:Row">
-            <Border Width="70" 
+            <Border Width="{StaticResource ColumnWidth}" 
                     Height="{Binding Height}">
               <TextBlock Text="{Binding Header}"
                          HorizontalAlignment="Center"
