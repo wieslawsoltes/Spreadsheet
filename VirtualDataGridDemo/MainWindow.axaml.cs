@@ -51,7 +51,7 @@ namespace VirtualDataGridDemo
             var rowHeadersScrollViewer = this.FindControl<ScrollViewer>("RowHeadersScrollViewer");
             var rowsItemsScrollViewer = this.FindControl<ScrollViewer>("RowsItemsScrollViewer");
 
-            rowsItemsScrollViewer.ScrollChanged += (_, args) =>
+            rowsItemsScrollViewer.ScrollChanged += (_, _) =>
             {
                 var offset = rowsItemsScrollViewer.Offset;
 
