@@ -34,6 +34,18 @@ namespace VirtualDataGridDemo
                 };
                 rowsItemsRepeater.Rows.Add(row);
             }
+            
+            var columnHeadersScrollViewer = this.FindControl<ScrollViewer>("ColumnHeadersScrollViewer");
+            var rowHeadersScrollViewer = this.FindControl<ScrollViewer>("RowHeadersScrollViewer");
+            var rowsItemsScrollViewer = this.FindControl<ScrollViewer>("RowsItemsScrollViewer");
+
+            rowsItemsScrollViewer.ScrollChanged += (_, args) =>
+            {
+                var offset = rowsItemsScrollViewer.Offset;
+
+                columnHeadersScrollViewer.Offset = new Vector(offset.X, 0);
+                rowHeadersScrollViewer.Offset = new Vector(0, offset.Y);
+            };
         }
 
         private void InitializeComponent()
