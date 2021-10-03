@@ -15,12 +15,16 @@ namespace VirtualDataGridDemo
 #endif
             var rowsItemsRepeater = this.FindControl<RowsItemsRepeater>("RowsItemsRepeater");
 
+            var columnWidth = 130;
+            var rowHeight = 28;
+            
             for (var c = 0; c < 1_000_000; c++)
             {
                 var column = new Column()
                 {
                     Header = $"{c}",
-                    Width = 70
+                    Width = columnWidth,
+                    Index = c
                 };
                 rowsItemsRepeater.Columns.Add(column);
             }
@@ -30,7 +34,8 @@ namespace VirtualDataGridDemo
                 var row = new Row()
                 {
                     Header = $"{r}",
-                    Height = 24
+                    Height = rowHeight,
+                    Index = r
                 };
                 rowsItemsRepeater.Rows.Add(row);
             }
