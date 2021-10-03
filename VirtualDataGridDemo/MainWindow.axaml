@@ -107,6 +107,16 @@
                 <DataTemplate DataType="c:Column">
                   <c:Cell Width="{Binding Width}"
                           Height="{Binding #CellsItemsRepeater.Bounds.Height}">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="{DynamicResource FontSizeSmall}">
+                      <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0},{1}">
+                          <Binding Path="Index"/>
+                          <Binding Path="DataContext.Index" ElementName="CellsItemsRepeater" />
+                        </MultiBinding>
+                      </TextBlock.Text>
+                    </TextBlock>
                     <ToolTip.Tip>
                       <StackPanel>
                         <StackPanel Orientation="Horizontal">
