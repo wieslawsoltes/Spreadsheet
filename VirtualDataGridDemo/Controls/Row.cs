@@ -10,6 +10,9 @@ namespace VirtualDataGridDemo.Controls
         public static readonly StyledProperty<double> HeightProperty = 
             AvaloniaProperty.Register<Row, double>(nameof(Height));
 
+        public static readonly StyledProperty<int> IndexProperty = 
+            AvaloniaProperty.Register<Row, int>(nameof(Index));
+
         public object? Header
         {
             get => GetValue(HeaderProperty);
@@ -20,6 +23,12 @@ namespace VirtualDataGridDemo.Controls
         {
             get => GetValue(HeightProperty);
             set => SetValue(HeightProperty, value);
+        }
+
+        public int Index
+        {
+            get => GetValue(IndexProperty);
+            set => SetValue(IndexProperty, value);
         }
     }
 }
