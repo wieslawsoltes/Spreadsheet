@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -17,6 +18,9 @@ namespace VirtualDataGridDemo
 
             var columnWidth = 130;
             var rowHeight = 28;
+
+            var columns = new List<Column>();
+            var rows = new List<Row>();
             
             for (var c = 0; c < 1_000_000; c++)
             {
@@ -26,7 +30,7 @@ namespace VirtualDataGridDemo
                     Width = columnWidth,
                     Index = c
                 };
-                rowsItemsRepeater.Columns.Add(column);
+                columns.Add(column);
             }
 
             for (var r = 0; r < 1_000_000; r++)
@@ -37,8 +41,11 @@ namespace VirtualDataGridDemo
                     Height = rowHeight,
                     Index = r
                 };
-                rowsItemsRepeater.Rows.Add(row);
+                rows.Add(row);
             }
+ 
+            rowsItemsRepeater.Columns.AddRange(columns);
+            rowsItemsRepeater.Rows.AddRange(rows);
             
             var columnHeadersScrollViewer = this.FindControl<ScrollViewer>("ColumnHeadersScrollViewer");
             var rowHeadersScrollViewer = this.FindControl<ScrollViewer>("RowHeadersScrollViewer");
