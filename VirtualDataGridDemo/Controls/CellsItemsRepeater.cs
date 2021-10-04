@@ -5,7 +5,7 @@ using Avalonia.Styling;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class CellsItemsRepeater :  ListBox, IStyleable
+    public class CellsItemsRepeater : ListBox, IStyleable
     {
         Type IStyleable.StyleKey => typeof(CellsItemsRepeater);
         
