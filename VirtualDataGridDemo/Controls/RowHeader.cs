@@ -10,8 +10,14 @@ namespace VirtualDataGridDemo.Controls
         public override void Render(DrawingContext context)
         {
             base.Render(context);
-            
-            context.DrawRectangle(Brushes.LightGray, new ImmutablePen(Brushes.DarkGray, 1D), new Rect(new Point(), Bounds.Size));
+
+            var thickness = 1.0;
+            var offset = thickness * 0.5;
+
+            context.DrawRectangle(
+                Brushes.LightGray, 
+                new ImmutablePen(Brushes.DarkGray, thickness), 
+                new Rect(new Point(offset, offset), new Size( Bounds.Size.Width + offset,  Bounds.Size.Height + offset)));
         }
     }
 }
