@@ -14,7 +14,14 @@ namespace VirtualDataGridDemo
 #if DEBUG
             this.AttachDevTools();
 #endif
+
+            Renderer.DrawFps = true;
+            
             var rowsItemsRepeater = this.FindControl<RowsItemsRepeater>("RowsItemsRepeater");
+            //var columnHeadersItemsRepeater = this.FindControl<ColumnHeadersItemsRepeater>("ColumnHeadersItemsRepeater");
+            var rowHeadersItemsRepeater = this.FindControl<RowHeadersItemsRepeater>("RowHeadersItemsRepeater");
+            var columnHeadersScrollViewer = this.FindControl<ScrollViewer>("ColumnHeadersScrollViewer");
+            //var rowHeadersScrollViewer = this.FindControl<ScrollViewer>("RowHeadersScrollViewer");
 
             var columnWidth = 130;
             var rowHeight = 28;
@@ -46,17 +53,20 @@ namespace VirtualDataGridDemo
  
             rowsItemsRepeater.Columns.AddRange(columns);
             rowsItemsRepeater.Rows.AddRange(rows);
-            
-            var columnHeadersScrollViewer = this.FindControl<ScrollViewer>("ColumnHeadersScrollViewer");
-            var rowHeadersScrollViewer = this.FindControl<ScrollViewer>("RowHeadersScrollViewer");
-            var rowsItemsScrollViewer = this.FindControl<ScrollViewer>("RowsItemsScrollViewer");
 
-            rowsItemsScrollViewer.ScrollChanged += (_, _) =>
+            rowsItemsRepeater.TemplateApplied += (_, _) =>
             {
-                var offset = rowsItemsScrollViewer.Offset;
-
-                columnHeadersScrollViewer.Offset = new Vector(offset.X, 0);
-                rowHeadersScrollViewer.Offset = new Vector(0, offset.Y);
+                if (rowsItemsRepeater.Scroll is ScrollViewer scrollViewer)
+                {
+                    scrollViewer.ScrollChanged += (_, _) =>
+                    {
+                        var (x, y) = rowsItemsRepeater.Scroll.Offset;
+                        //columnHeadersItemsRepeater.Scroll.Offset = new Vector(x, 0);
+                        rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, y);
+                        columnHeadersScrollViewer.Offset = new Vector(x, 0);
+                        //rowHeadersScrollViewer.Offset = new Vector(0, y);
+                    };
+                }
             };
         }
 
