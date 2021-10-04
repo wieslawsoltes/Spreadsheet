@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
@@ -61,9 +62,21 @@ namespace VirtualDataGridDemo
                     scrollViewer.ScrollChanged += (_, _) =>
                     {
                         var (x, y) = rowsItemsRepeater.Scroll.Offset;
+
+                        var columnsCount = (double)columns.Count;
+                        var rowsCount = (double)rows.Count;
+                        
+                        var columnIndex = (int)Math.Round(x / (rowsItemsRepeater.Scroll.Extent.Width / columnsCount), 0);
+                        var ox = columnIndex * (rowsItemsRepeater.Scroll.Extent.Width / columnsCount);
+
+                        var rowIndex = (int)Math.Round(y / (rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
+                        var oy = rowIndex * (rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
+                        
+                        rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
+                        
                         //columnHeadersItemsRepeater.Scroll.Offset = new Vector(x, 0);
-                        rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, y);
-                        columnHeadersScrollViewer.Offset = new Vector(x, 0);
+                        rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
+                        columnHeadersScrollViewer.Offset = new Vector(ox, 0);
                         //rowHeadersScrollViewer.Offset = new Vector(0, y);
                     };
                 }
