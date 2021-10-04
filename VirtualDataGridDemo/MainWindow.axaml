@@ -166,12 +166,12 @@
         </c:ColumnHeadersItemsRepeater.Layout>
         <c:ColumnHeadersItemsRepeater.ItemTemplate>
           <DataTemplate DataType="c:Column">
-            <Border Width="{Binding Width}" 
-                    Height="{StaticResource RowHeight}">
+            <c:ColumnHeader Width="{Binding Width}" 
+                            Height="{StaticResource RowHeight}">
               <TextBlock Text="{Binding Header}"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"/>
-            </Border>
+            </c:ColumnHeader>
           </DataTemplate>
         </c:ColumnHeadersItemsRepeater.ItemTemplate>
       </c:ColumnHeadersItemsRepeater>
@@ -187,8 +187,8 @@
       </c:ColumnHeadersItemsRepeater.ItemsPanel>
       <c:ColumnHeadersItemsRepeater.ItemTemplate>
         <DataTemplate DataType="c:Column">
-          <Border Width="{Binding Width}" 
-                  Height="{StaticResource RowHeight}">
+          <c:ColumnHeader Width="{Binding Width}" 
+                          Height="{StaticResource RowHeight}">
             <TextBlock Text="{Binding Header}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
@@ -209,8 +209,8 @@
         </c:RowHeadersItemsRepeater.Layout>
         <c:RowHeadersItemsRepeater.ItemTemplate>
           <DataTemplate DataType="c:Row">
-            <Border Width="{StaticResource ColumnWidth}" 
-                    Height="{Binding Height}">
+            <<c:RowHeader Width="{StaticResource ColumnWidth}" 
+                          Height="{Binding Height}">
               <TextBlock Text="{Binding Header}"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"/>
@@ -230,12 +230,12 @@
       </c:RowHeadersItemsRepeater.ItemsPanel>
       <c:RowHeadersItemsRepeater.ItemTemplate>
         <DataTemplate DataType="c:Row">
-          <Border Width="{StaticResource ColumnWidth}" 
-                  Height="{Binding Height}">
+          <c:RowHeader Width="{StaticResource ColumnWidth}" 
+                       Height="{Binding Height}">
             <TextBlock Text="{Binding Header}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-          </Border>
+          </c:RowHeader>
         </DataTemplate>
       </c:RowHeadersItemsRepeater.ItemTemplate>
     </c:RowHeadersItemsRepeater>
