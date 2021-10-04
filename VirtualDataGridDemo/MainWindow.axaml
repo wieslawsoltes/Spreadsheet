@@ -9,12 +9,6 @@
         Title="VirtualDataGridDemo">
 
   <Window.Styles>
-    <Style Selector="ScrollViewer.default">
-      <Setter Property="ClipToBounds" Value="True"/>
-    </Style>
-    <Style Selector="ScrollViewer.default /template/ ScrollContentPresenter">
-      <Setter Property="ClipToBounds" Value="False"/>
-    </Style>
     <Style Selector="c|ColumnHeadersItemsRepeater">
       <Setter Property="ClipToBounds" Value="False"/>
       <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
