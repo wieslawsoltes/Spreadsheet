@@ -29,7 +29,7 @@ namespace VirtualDataGridDemo
             var columns = new List<Column>();
             var rows = new List<Row>();
             
-            for (var c = 0; c < 1_000; c++)
+            for (var c = 0; c < 1_000_000; c++)
             {
                 var column = new Column()
                 {
@@ -40,7 +40,7 @@ namespace VirtualDataGridDemo
                 columns.Add(column);
             }
 
-            for (var r = 0; r < 1_000; r++)
+            for (var r = 0; r < 1_000_000; r++)
             {
                 var row = new Row()
                 {
