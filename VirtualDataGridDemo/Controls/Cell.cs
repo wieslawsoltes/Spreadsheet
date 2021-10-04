@@ -11,7 +11,7 @@ namespace VirtualDataGridDemo.Controls
         {
             base.Render(context);
             
-            context.DrawRectangle(Brushes.Transparent, new ImmutablePen(Brushes.Black, 1D), new Rect(new Point(), Bounds.Size));
+            context.DrawRectangle(Brushes.White, new ImmutablePen(Brushes.DarkGray, 1D), new Rect(new Point(), Bounds.Size));
         }
     }
 }
