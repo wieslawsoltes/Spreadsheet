@@ -137,6 +137,7 @@
     </Style>-->
 
     <Style Selector="ListBoxItem">
+      <Setter Property="ClipToBounds" Value="False" />
       <Setter Property="Margin" Value="0" />
       <Setter Property="Padding" Value="0" />
     </Style>
@@ -160,7 +161,8 @@
                   Grid.Column="1"
                   Grid.Row="0">
       <c:ColumnHeadersItemsRepeater Name="ColumnHeadersItemsRepeater"
-                                    Items="{Binding #RowsItemsRepeater.Columns}">
+                                    Items="{Binding #RowsItemsRepeater.Columns}"
+                                    ClipToBounds="False">
         <c:ColumnHeadersItemsRepeater.Layout>
           <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
         </c:ColumnHeadersItemsRepeater.Layout>
@@ -253,7 +255,8 @@
         <DataTemplate DataType="c:Row">
           <c:CellsItemsRepeater Name="CellsItemsRepeater"
                                 Items="{Binding #RowsItemsRepeater.Columns}"
-                                Height="{Binding Height}">
+                                Height="{Binding Height}"
+                                ClipToBounds="False">
             <!--<c:CellsItemsRepeater.ItemsPanel>
               <ItemsPanelTemplate>
                 <VirtualizingStackPanel Orientation="Horizontal" />
