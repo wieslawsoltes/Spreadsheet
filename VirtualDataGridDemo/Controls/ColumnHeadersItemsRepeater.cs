@@ -5,7 +5,7 @@ using Avalonia.Styling;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class ColumnHeadersItemsRepeater : ListBox, IStyleable
+    /*public class ColumnHeadersItemsRepeater : ListBox, IStyleable
     {
         Type IStyleable.StyleKey => typeof(ColumnHeadersItemsRepeater);
 
@@ -16,5 +16,8 @@ namespace VirtualDataGridDemo.Controls
                 ContentControl.ContentProperty,
                 ContentControl.ContentTemplateProperty);
         }
+    }*/
+    public class ColumnHeadersItemsRepeater : ItemsRepeater
+    {
     }
 }

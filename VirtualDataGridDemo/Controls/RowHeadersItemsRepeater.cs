@@ -17,4 +17,7 @@ namespace VirtualDataGridDemo.Controls
                 ContentControl.ContentTemplateProperty);
         }
     }
+    /*public class RowHeadersItemsRepeater : ItemsRepeater
+    {
+    }*/
 }
