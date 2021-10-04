@@ -1,10 +1,13 @@
+using System;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Generators;
+using Avalonia.Styling;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class RowsItemsRepeater : ItemsRepeater
+    public class RowsItemsRepeater : ListBox, IStyleable
     {
         public static readonly DirectProperty<RowsItemsRepeater, AvaloniaList<Column>> ColumnsProperty = 
             AvaloniaProperty.RegisterDirect<RowsItemsRepeater, AvaloniaList<Column>>(
@@ -31,6 +34,16 @@ namespace VirtualDataGridDemo.Controls
         {
             get => _rows;
             set => SetAndRaise(RowsProperty, ref _rows, value);
+        }
+        
+        Type IStyleable.StyleKey => typeof(RowsItemsRepeater);
+
+        protected override IItemContainerGenerator CreateItemContainerGenerator()
+        {
+            return new ItemContainerGenerator<RowItem>(
+                this,
+                ContentControl.ContentProperty,
+                ContentControl.ContentTemplateProperty);
         }
     }
 }
