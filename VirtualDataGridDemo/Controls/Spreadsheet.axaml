@@ -35,9 +35,9 @@
           </ScrollViewer>
 
           <RowHeadersPresenter Name="RowHeadersItemsRepeater"
-                                   Items="{TemplateBinding Rows}"
-                                   Grid.Column="0"
-                                   Grid.Row="1">
+                               Items="{TemplateBinding Rows}"
+                               Grid.Column="0"
+                               Grid.Row="1">
             <RowHeadersPresenter.ItemsPanel>
               <ItemsPanelTemplate>
                 <VirtualizingStackPanel Orientation="Vertical" />
@@ -76,7 +76,7 @@
                   <CellsPresenter.ItemTemplate>
                     <DataTemplate DataType="Column">
                       <Cell Width="{Binding Width}"
-                              Height="{Binding #CellsItemsRepeater.Bounds.Height}">
+                            Height="{Binding #CellsItemsRepeater.Bounds.Height}">
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    FontSize="{DynamicResource FontSizeSmall}">
@@ -177,7 +177,13 @@
     </Setter>
   </Style>
 
-  <Style Selector="ListBoxItem">
+  <Style Selector="RowHeadersPresenter > ListBoxItem">
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+
+  <Style Selector="RowsPresenter > ListBoxItem">
     <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="Margin" Value="0" />
     <Setter Property="Padding" Value="0" />
