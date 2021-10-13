@@ -81,10 +81,15 @@
                                    VerticalAlignment="Center"
                                    FontSize="{DynamicResource FontSizeSmall}">
                           <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0},{1}">
+                            <MultiBinding Converter="{x:Static CellDataConverter.Instance}">
+                              <Binding Path="$parent[Spreadsheet].Items"/>
                               <Binding Path="Index"/>
                               <Binding Path="DataContext.Index" ElementName="CellsItemsRepeater" />
                             </MultiBinding>
+                            <!--<MultiBinding StringFormat="{}{0},{1}">
+                              <Binding Path="Index"/>
+                              <Binding Path="DataContext.Index" ElementName="CellsItemsRepeater" />
+                            </MultiBinding>-->
                           </TextBlock.Text>
                         </TextBlock>
                         <ToolTip.Tip>

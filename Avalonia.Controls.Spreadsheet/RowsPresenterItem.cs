@@ -1,8 +1,7 @@
 using System;
-using Avalonia.Controls;
 using Avalonia.Styling;
 
-namespace VirtualDataGridDemo.Controls
+namespace Avalonia.Controls.Spreadsheet
 {
     public class RowsPresenterItem : ListBoxItem, IStyleable
     {

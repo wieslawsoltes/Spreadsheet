@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using VirtualDataGridDemo.Controls;
+using Avalonia.Controls.Spreadsheet;
 
 namespace VirtualDataGridDemo
 {
@@ -26,19 +26,12 @@ namespace VirtualDataGridDemo
             var rowHeight = 28;
             var columns = new List<Column>();
             var rows = new List<Row>();
+            var items = new List<List<object?>>();
 
-            for (var c = 0; c < 1_000_000; c++)
-            {
-                var column = new Column
-                {
-                    Header = $"{c}",
-                    Width = columnWidth,
-                    Index = c
-                };
-                columns.Add(column);
-            }
+            var columnsCount = 100;
+            var rowsCount = 10_000;
 
-            for (var r = 0; r < 1_000_000; r++)
+            for (var r = 0; r < rowsCount; r++)
             {
                 var row = new Row
                 {
@@ -49,11 +42,34 @@ namespace VirtualDataGridDemo
                 rows.Add(row);
             }
 
+            for (var c = 0; c < columnsCount; c++)
+            {
+                var column = new Column
+                {
+                    Header = $"{c}",
+                    Width = columnWidth,
+                    Index = c
+                };
+                columns.Add(column);
+            }
+
+            for (var r = 0; r < rowsCount; r++)
+            {
+                items.Insert(r, new List<object?>());
+
+                for (var c = 0; c < columnsCount; c++)
+                {
+                    items[r].Insert(c, $"Items[{r}][{c}]");
+                }
+            }
+
             spreadsheet.RowHeadersWidth = 130;
             spreadsheet.ColumnHeadersHeight = 28;
 
             spreadsheet.Columns.AddRange(columns);
             spreadsheet.Rows.AddRange(rows);
+
+            spreadsheet.Items = items;
         }
 
         private void InitializeComponent()

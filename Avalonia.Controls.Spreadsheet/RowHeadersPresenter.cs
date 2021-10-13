@@ -1,9 +1,8 @@
 using System;
-using Avalonia.Controls;
 using Avalonia.Controls.Generators;
 using Avalonia.Styling;
 
-namespace VirtualDataGridDemo.Controls
+namespace Avalonia.Controls.Spreadsheet
 {
     public class RowHeadersPresenter : ListBox, IStyleable
     {

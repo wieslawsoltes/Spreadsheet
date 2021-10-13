@@ -1,9 +1,7 @@
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
-namespace VirtualDataGridDemo.Controls
+namespace Avalonia.Controls.Spreadsheet
 {
     public class ColumnHeader : Decorator
     {

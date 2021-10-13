@@ -1,6 +1,4 @@
-using Avalonia;
-
-namespace VirtualDataGridDemo.Controls
+namespace Avalonia.Controls.Spreadsheet
 {
     public class Row : AvaloniaObject
     {

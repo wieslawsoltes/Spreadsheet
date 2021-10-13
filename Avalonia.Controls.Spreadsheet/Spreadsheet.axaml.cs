@@ -1,10 +1,9 @@
 ﻿using System;
-using Avalonia;
+using System.Collections.Generic;
 using Avalonia.Collections;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 
-namespace VirtualDataGridDemo.Controls
+namespace Avalonia.Controls.Spreadsheet
 {
     public class Spreadsheet : TemplatedControl
     {
@@ -26,8 +25,8 @@ namespace VirtualDataGridDemo.Controls
         public static readonly StyledProperty<double> ColumnHeadersHeightProperty = 
             AvaloniaProperty.Register<Spreadsheet, double>(nameof(ColumnHeadersHeight), 32);
 
-        public static readonly StyledProperty<AvaloniaList<AvaloniaList<object?>>?> ItemsProperty = 
-            AvaloniaProperty.Register<Spreadsheet, AvaloniaList<AvaloniaList<object?>>?>(nameof(Items));
+        public static readonly StyledProperty<List<List<object?>>?> ItemsProperty = 
+            AvaloniaProperty.Register<Spreadsheet, List<List<object?>>?>(nameof(Items));
 
         private AvaloniaList<Column> _columns = new();
         private AvaloniaList<Row> _rows = new();
@@ -56,7 +55,7 @@ namespace VirtualDataGridDemo.Controls
             set => SetValue(ColumnHeadersHeightProperty, value);
         }
 
-        public AvaloniaList<AvaloniaList<object?>>? Items
+        public List<List<object?>>? Items
         {
             get => GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
