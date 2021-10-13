@@ -40,7 +40,7 @@ namespace VirtualDataGridDemo.Controls
 
         protected override IItemContainerGenerator CreateItemContainerGenerator()
         {
-            return new ItemContainerGenerator<RowItem>(
+            return new ItemContainerGenerator<RowsPresenterItem>(
                 this,
                 ContentControl.ContentProperty,
                 ContentControl.ContentTemplateProperty);

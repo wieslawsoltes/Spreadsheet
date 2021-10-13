@@ -1,11 +1,11 @@
 using System;
 using Avalonia.Controls;
+using Avalonia.Controls.Generators;
 using Avalonia.Styling;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class RowItem : ListBoxItem, IStyleable
+    public class ColumnHeadersPresenter : ItemsRepeater
     {
-        Type IStyleable.StyleKey => typeof(ListBoxItem);
     }
 }

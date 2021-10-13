@@ -10,37 +10,6 @@
 
   <Window.Styles>
 
-    <!--<Style Selector="c|ColumnHeadersItemsRepeater">
-      <Setter Property="ClipToBounds" Value="False"/>
-      <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
-      <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
-      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
-      <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
-      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
-      <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />        
-      <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />    
-      <Setter Property="Template">
-        <ControlTemplate>
-          <Border Name="border"
-                  Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <ScrollViewer Name="PART_ScrollViewer"
-                          HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
-                          AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
-              <ItemsPresenter Name="PART_ItemsPresenter"
-                              Items="{TemplateBinding Items}"
-                              ItemsPanel="{TemplateBinding ItemsPanel}"
-                              ItemTemplate="{TemplateBinding ItemTemplate}"
-                              Margin="{TemplateBinding Padding}"
-                              VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
-            </ScrollViewer>
-          </Border>
-        </ControlTemplate>
-      </Setter>
-    </Style>-->
-
     <Style Selector="c|RowHeadersItemsRepeater">
       <Setter Property="ClipToBounds" Value="False"/>
       <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
@@ -105,37 +74,6 @@
       </Setter>
     </Style>
 
-    <!--<Style Selector="c|CellsItemsRepeater">
-      <Setter Property="ClipToBounds" Value="False"/>
-      <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
-      <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
-      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
-      <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
-      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
-      <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />        
-      <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />    
-      <Setter Property="Template">
-        <ControlTemplate>
-          <Border Name="border"
-                  Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <ScrollViewer Name="PART_ScrollViewer"
-                          HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
-                          AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
-              <ItemsPresenter Name="PART_ItemsPresenter"
-                              Items="{TemplateBinding Items}"
-                              ItemsPanel="{TemplateBinding ItemsPanel}"
-                              ItemTemplate="{TemplateBinding ItemTemplate}"
-                              Margin="{TemplateBinding Padding}"
-                              VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
-            </ScrollViewer>
-          </Border>
-        </ControlTemplate>
-      </Setter>
-    </Style>-->
-
     <Style Selector="ListBoxItem">
       <Setter Property="ClipToBounds" Value="False" />
       <Setter Property="Margin" Value="0" />
@@ -160,13 +98,13 @@
                   VerticalScrollBarVisibility="Disabled"
                   Grid.Column="1"
                   Grid.Row="0">
-      <c:ColumnHeadersItemsRepeater Name="ColumnHeadersItemsRepeater"
+      <c:ColumnHeadersPresenter Name="ColumnHeadersItemsRepeater"
                                     Items="{Binding #RowsItemsRepeater.Columns}"
                                     ClipToBounds="False">
-        <c:ColumnHeadersItemsRepeater.Layout>
+        <c:ColumnHeadersPresenter.Layout>
           <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
-        </c:ColumnHeadersItemsRepeater.Layout>
-        <c:ColumnHeadersItemsRepeater.ItemTemplate>
+        </c:ColumnHeadersPresenter.Layout>
+        <c:ColumnHeadersPresenter.ItemTemplate>
           <DataTemplate DataType="c:Column">
             <c:ColumnHeader Width="{Binding Width}" 
                             Height="{StaticResource RowHeight}">
@@ -175,52 +113,10 @@
                          VerticalAlignment="Center"/>
             </c:ColumnHeader>
           </DataTemplate>
-        </c:ColumnHeadersItemsRepeater.ItemTemplate>
-      </c:ColumnHeadersItemsRepeater>
+        </c:ColumnHeadersPresenter.ItemTemplate>
+      </c:ColumnHeadersPresenter>
     </ScrollViewer>
-    <!--<c:ColumnHeadersItemsRepeater Name="ColumnHeadersItemsRepeater"
-                                  Items="{Binding #RowsItemsRepeater.Columns}"
-                                  Grid.Column="1"
-                                  Grid.Row="0">
-      <c:ColumnHeadersItemsRepeater.ItemsPanel>
-        <ItemsPanelTemplate>
-          <VirtualizingStackPanel Orientation="Horizontal" />
-        </ItemsPanelTemplate>
-      </c:ColumnHeadersItemsRepeater.ItemsPanel>
-      <c:ColumnHeadersItemsRepeater.ItemTemplate>
-        <DataTemplate DataType="c:Column">
-          <c:ColumnHeader Width="{Binding Width}" 
-                          Height="{StaticResource RowHeight}">
-            <TextBlock Text="{Binding Header}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-          </Border>
-        </DataTemplate>
-      </c:ColumnHeadersItemsRepeater.ItemTemplate>
-    </c:ColumnHeadersItemsRepeater>-->
 
-    <!--<ScrollViewer Name="RowHeadersScrollViewer"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Hidden"
-                  Grid.Column="0"
-                  Grid.Row="1">
-      <c:RowHeadersItemsRepeater Name="RowHeadersItemsRepeater"
-                                 Items="{Binding #RowsItemsRepeater.Rows}">
-        <c:RowHeadersItemsRepeater.Layout>
-          <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Horizontal" />
-        </c:RowHeadersItemsRepeater.Layout>
-        <c:RowHeadersItemsRepeater.ItemTemplate>
-          <DataTemplate DataType="c:Row">
-            <<c:RowHeader Width="{StaticResource ColumnWidth}" 
-                          Height="{Binding Height}">
-              <TextBlock Text="{Binding Header}"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"/>
-            </Border>
-          </DataTemplate>
-        </c:RowHeadersItemsRepeater.ItemTemplate>
-      </c:RowHeadersItemsRepeater>
-    </ScrollViewer>-->
     <c:RowHeadersItemsRepeater Name="RowHeadersItemsRepeater"
                                Items="{Binding #RowsItemsRepeater.Rows}"
                                Grid.Column="0"
@@ -253,19 +149,14 @@
       </c:RowsItemsRepeater.ItemsPanel>
       <c:RowsItemsRepeater.ItemTemplate>
         <DataTemplate DataType="c:Row">
-          <c:CellsItemsRepeater Name="CellsItemsRepeater"
+          <c:CellsPresenter Name="CellsItemsRepeater"
                                 Items="{Binding #RowsItemsRepeater.Columns}"
                                 Height="{Binding Height}"
                                 ClipToBounds="False">
-            <!--<c:CellsItemsRepeater.ItemsPanel>
-              <ItemsPanelTemplate>
-                <VirtualizingStackPanel Orientation="Horizontal" />
-              </ItemsPanelTemplate>
-            </c:CellsItemsRepeater.ItemsPanel>-->
-            <c:CellsItemsRepeater.Layout>
+            <c:CellsPresenter.Layout>
               <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
-            </c:CellsItemsRepeater.Layout>
-            <c:CellsItemsRepeater.ItemTemplate>
+            </c:CellsPresenter.Layout>
+            <c:CellsPresenter.ItemTemplate>
               <DataTemplate DataType="c:Column">
                 <c:Cell Width="{Binding Width}"
                         Height="{Binding #CellsItemsRepeater.Bounds.Height}">
@@ -293,8 +184,8 @@
                   </ToolTip.Tip>
                 </c:Cell>
               </DataTemplate>
-            </c:CellsItemsRepeater.ItemTemplate>
-          </c:CellsItemsRepeater>
+            </c:CellsPresenter.ItemTemplate>
+          </c:CellsPresenter>
         </DataTemplate>
       </c:RowsItemsRepeater.ItemTemplate>
     </c:RowsItemsRepeater>

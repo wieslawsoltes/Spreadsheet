@@ -19,10 +19,8 @@ namespace VirtualDataGridDemo
             Renderer.DrawFps = true;
             
             var rowsItemsRepeater = this.FindControl<RowsItemsRepeater>("RowsItemsRepeater");
-            //var columnHeadersItemsRepeater = this.FindControl<ColumnHeadersItemsRepeater>("ColumnHeadersItemsRepeater");
             var rowHeadersItemsRepeater = this.FindControl<RowHeadersItemsRepeater>("RowHeadersItemsRepeater");
             var columnHeadersScrollViewer = this.FindControl<ScrollViewer>("ColumnHeadersScrollViewer");
-            //var rowHeadersScrollViewer = this.FindControl<ScrollViewer>("RowHeadersScrollViewer");
 
             var columnWidth = 130;
             var rowHeight = 28;
@@ -65,19 +63,16 @@ namespace VirtualDataGridDemo
 
                         var columnsCount = (double)columns.Count;
                         var rowsCount = (double)rows.Count;
-                        
+
                         var columnIndex = (int)Math.Round(x / (rowsItemsRepeater.Scroll.Extent.Width / columnsCount), 0);
                         var ox = columnIndex * (rowsItemsRepeater.Scroll.Extent.Width / columnsCount);
 
                         var rowIndex = (int)Math.Round(y / (rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
                         var oy = rowIndex * (rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
-                        
+
                         rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
-                        
-                        //columnHeadersItemsRepeater.Scroll.Offset = new Vector(x, 0);
                         rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
                         columnHeadersScrollViewer.Offset = new Vector(ox, 0);
-                        //rowHeadersScrollViewer.Offset = new Vector(0, y);
                     };
                 }
             };
