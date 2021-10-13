@@ -3,5 +3,6 @@
              x:Class="VirtualDataGridDemo.App">
   <Application.Styles>
     <FluentTheme Mode="Light" />
+    <StyleInclude Source="/Controls/Spreadsheet.axaml" />
   </Application.Styles>
 </Application>

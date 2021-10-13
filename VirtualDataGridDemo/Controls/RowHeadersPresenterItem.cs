@@ -4,7 +4,7 @@ using Avalonia.Styling;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class RowHeaderItem : ListBoxItem, IStyleable
+    public class RowHeadersPresenterItem : ListBoxItem, IStyleable
     {
         Type IStyleable.StyleKey => typeof(ListBoxItem);
     }

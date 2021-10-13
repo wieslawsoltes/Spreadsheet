@@ -1,0 +1,187 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Spreadsheet />
+  </Design.PreviewWith>
+
+  <Style Selector="Spreadsheet">
+    <Setter Property="Template">
+      <ControlTemplate>
+
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+
+          <ScrollViewer Name="ColumnHeadersScrollViewer"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Disabled"
+                        Grid.Column="1"
+                        Grid.Row="0">
+            <ColumnHeadersPresenter Name="ColumnHeadersItemsRepeater"
+                                    Items="{TemplateBinding Columns}"
+                                    ClipToBounds="False">
+              <ColumnHeadersPresenter.Layout>
+                <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
+              </ColumnHeadersPresenter.Layout>
+              <ColumnHeadersPresenter.ItemTemplate>
+                <DataTemplate DataType="Column">
+                  <ColumnHeader Width="{Binding Width}" 
+                                Height="{Binding $parent[Spreadsheet].ColumnHeadersHeight}">
+                    <TextBlock Text="{Binding Header}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                  </ColumnHeader>
+                </DataTemplate>
+              </ColumnHeadersPresenter.ItemTemplate>
+            </ColumnHeadersPresenter>
+          </ScrollViewer>
+
+          <RowHeadersPresenter Name="RowHeadersItemsRepeater"
+                                   Items="{TemplateBinding Rows}"
+                                   Grid.Column="0"
+                                   Grid.Row="1">
+            <RowHeadersPresenter.ItemsPanel>
+              <ItemsPanelTemplate>
+                <VirtualizingStackPanel Orientation="Vertical" />
+              </ItemsPanelTemplate>
+            </RowHeadersPresenter.ItemsPanel>
+            <RowHeadersPresenter.ItemTemplate>
+              <DataTemplate DataType="Row">
+                <RowHeader Width="{Binding $parent[Spreadsheet].RowHeadersWidth}" 
+                           Height="{Binding Height}">
+                  <TextBlock Text="{Binding Header}"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"/>
+                </RowHeader>
+              </DataTemplate>
+            </RowHeadersPresenter.ItemTemplate>
+          </RowHeadersPresenter>
+
+          <RowsPresenter Name="RowsItemsRepeater"
+                         Items="{TemplateBinding Rows}"
+                         Grid.Column="1"
+                         Grid.Row="1">
+            <RowsPresenter.ItemsPanel>
+              <ItemsPanelTemplate>
+                <VirtualizingStackPanel Orientation="Vertical" />
+              </ItemsPanelTemplate>
+            </RowsPresenter.ItemsPanel>
+            <RowsPresenter.ItemTemplate>
+              <DataTemplate DataType="Row">
+                <CellsPresenter Name="CellsItemsRepeater"
+                                Items="{Binding $parent[Spreadsheet].Columns}"
+                                Height="{Binding Height}"
+                                ClipToBounds="False">
+                  <CellsPresenter.Layout>
+                    <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
+                  </CellsPresenter.Layout>
+                  <CellsPresenter.ItemTemplate>
+                    <DataTemplate DataType="Column">
+                      <Cell Width="{Binding Width}"
+                              Height="{Binding #CellsItemsRepeater.Bounds.Height}">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="{DynamicResource FontSizeSmall}">
+                          <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0},{1}">
+                              <Binding Path="Index"/>
+                              <Binding Path="DataContext.Index" ElementName="CellsItemsRepeater" />
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                        <ToolTip.Tip>
+                          <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                              <TextBlock Text="Column: "></TextBlock>
+                              <TextBlock Text="{Binding Header}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                              <TextBlock Text="Row: "></TextBlock>
+                              <TextBlock Text="{Binding #CellsItemsRepeater.DataContext.Header}"/>
+                            </StackPanel>
+                          </StackPanel>
+                        </ToolTip.Tip>
+                      </Cell>
+                    </DataTemplate>
+                  </CellsPresenter.ItemTemplate>
+                </CellsPresenter>
+              </DataTemplate>
+            </RowsPresenter.ItemTemplate>
+          </RowsPresenter>
+
+        </Grid>
+
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="RowHeadersPresenter">
+    <Setter Property="ClipToBounds" Value="False"/>
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    <!-- <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" /> -->
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />        
+    <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />    
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            Items="{TemplateBinding Items}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ItemTemplate="{TemplateBinding ItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="RowsPresenter">
+    <Setter Property="ClipToBounds" Value="False"/>
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    <!-- <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" /> -->
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />        
+    <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />    
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            Items="{TemplateBinding Items}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ItemTemplate="{TemplateBinding ItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ListBoxItem">
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+
+</Styles>
+

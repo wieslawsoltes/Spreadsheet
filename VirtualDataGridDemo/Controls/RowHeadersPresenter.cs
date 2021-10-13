@@ -5,13 +5,13 @@ using Avalonia.Styling;
 
 namespace VirtualDataGridDemo.Controls
 {
-    public class RowHeadersItemsRepeater : ListBox, IStyleable
+    public class RowHeadersPresenter : ListBox, IStyleable
     {
-        Type IStyleable.StyleKey => typeof(RowHeadersItemsRepeater);
+        Type IStyleable.StyleKey => typeof(RowHeadersPresenter);
 
         protected override IItemContainerGenerator CreateItemContainerGenerator()
         {
-            return new ItemContainerGenerator<RowHeaderItem>(
+            return new ItemContainerGenerator<RowHeadersPresenterItem>(
                 this,
                 ContentControl.ContentProperty,
                 ContentControl.ContentTemplateProperty);
