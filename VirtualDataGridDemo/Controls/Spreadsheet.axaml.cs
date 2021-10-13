@@ -26,9 +26,12 @@ namespace VirtualDataGridDemo.Controls
         public static readonly StyledProperty<double> ColumnHeadersHeightProperty = 
             AvaloniaProperty.Register<Spreadsheet, double>(nameof(ColumnHeadersHeight), 32);
 
+        public static readonly StyledProperty<AvaloniaList<AvaloniaList<object?>>?> ItemsProperty = 
+            AvaloniaProperty.Register<Spreadsheet, AvaloniaList<AvaloniaList<object?>>?>(nameof(Items));
+
         private AvaloniaList<Column> _columns = new();
         private AvaloniaList<Row> _rows = new();
-        
+
         public AvaloniaList<Column> Columns
         {
             get => _columns;
@@ -51,6 +54,12 @@ namespace VirtualDataGridDemo.Controls
         {
             get => GetValue(ColumnHeadersHeightProperty);
             set => SetValue(ColumnHeadersHeightProperty, value);
+        }
+
+        public AvaloniaList<AvaloniaList<object?>>? Items
+        {
+            get => GetValue(ItemsProperty);
+            set => SetValue(ItemsProperty, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
