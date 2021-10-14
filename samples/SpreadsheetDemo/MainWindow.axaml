@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpreadsheetDemo"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SpreadsheetDemo.MainWindow"
         Width="800" Height="450" WindowStartupLocation="CenterScreen"
@@ -9,9 +10,16 @@
 
   <DockPanel>
 
-    <Panel Height="32" DockPanel.Dock="Top" />
+    <DockPanel LastChildFill="False"
+               DockPanel.Dock="Top">
+      <Menu>
+        <MenuItem Header="_File">
+          <MenuItem Header="Open..." Command="{Binding $parent[local:MainWindow].OpenSpreadsheet}" />
+        </MenuItem>
+      </Menu>
+    </DockPanel>
 
-    <SpreadsheetControl Name="Spreadsheet"/>
+    <SpreadsheetControl Name="Spreadsheet" />
 
   </DockPanel>
 
