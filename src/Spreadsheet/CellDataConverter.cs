@@ -17,7 +17,14 @@ namespace Spreadsheet
                 && values[1] is int columnIndex
                 && values[2] is int rowIndex)
             {
-                return items[rowIndex][columnIndex];
+                if (items.Count > rowIndex)
+                {
+                    var fields = items[rowIndex];
+                    if (fields.Count > columnIndex)
+                    {
+                        return fields[columnIndex];
+                    }
+                }
             }
             return AvaloniaProperty.UnsetValue;
         }
