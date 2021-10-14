@@ -143,6 +143,28 @@ namespace SpreadsheetDemo
                     }
                 }
 
+                if (columns is null)
+                {
+                    var fields = result.Items.FirstOrDefault();
+                    if (fields is { })
+                    {
+                        var c = 0;
+                        foreach (var field in fields)
+                        {
+                            var column = new Spreadsheet.Column
+                            {
+                                Header = $"{c}",
+                                Width = columnWidth,
+                                Index = c
+                            };
+
+                            result.Columns.Add(column);
+
+                            c++;
+                        }
+                    }
+                }
+                
                 results.Add(result);
                 i++;
             }
