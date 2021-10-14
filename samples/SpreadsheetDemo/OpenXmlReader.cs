@@ -6,29 +6,22 @@ using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace SpreadsheetDemo
 {
-    public class OpenXmlResult
-    {
-        public List<List<object?>> Items;
-        public List<Spreadsheet.Column> Columns;
-        public List<Spreadsheet.Row> Rows;
-    }
-    
     public class OpenXmlReader
     {
-        private static string? ToString(Cell c, SharedStringTablePart? stringTable)
+        private static string? ToString(Cell cell, SharedStringTablePart? stringTable)
         {
-            if (c.DataType is null)
+            if (cell.DataType is null)
             {
-                return c.CellValue?.Text;
+                return cell.CellValue?.Text;
             }
 
-            switch (c.DataType.Value)
+            switch (cell.DataType.Value)
             {
                 case CellValues.SharedString:
                 {
                     if (stringTable is { })
                     {
-                        int index = int.Parse(c.InnerText);
+                        int index = int.Parse(cell.InnerText);
                         var value = stringTable.SharedStringTable.ElementAt(index).InnerText;
                         return value;
                     }
@@ -36,28 +29,28 @@ namespace SpreadsheetDemo
                     break;
                 case CellValues.Boolean:
                 {
-                    return c.InnerText switch
+                    return cell.InnerText switch
                     {
                         "0" => "FALSE",
                         _ => "TRUE",
                     };
                 }
                 case CellValues.Number:
-                    return c.InnerText;
+                    return cell.InnerText;
                 case CellValues.Error:
-                    return c.InnerText;
+                    return cell.InnerText;
                 case CellValues.String:
-                    return c.InnerText;
+                    return cell.InnerText;
                 case CellValues.InlineString:
-                    return c.InnerText;
+                    return cell.InnerText;
                 case CellValues.Date:
-                    return c.InnerText;
+                    return cell.InnerText;
             }
 
             return null;
         }
 
-        public static OpenXmlResult? Read(string path)
+        public static List<OpenXmlResult>? Read(string path, double columnWidth, double rowHeight)
         {
             using var stream = File.OpenRead(path);
             
@@ -69,65 +62,89 @@ namespace SpreadsheetDemo
                 return null;
             }
 
-            var worksheetPart = workbookPart.WorksheetParts.First();
-
-            var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
-
             var stringTable = workbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
 
-            var result = new OpenXmlResult
-            {
-                Items = new List<List<object?>>(),
-                Columns = new List<Spreadsheet.Column>(),
-                Rows = new List<Spreadsheet.Row>(),
-            };
+            var results = new List<OpenXmlResult>();
 
-            var columns = worksheetPart.Worksheet?.GetFirstChild<Columns>()?.Select(x => x as Column).ToList();
-            
-            if (columns is { })
+            var sheets = workbookPart.Workbook.Sheets?.ToList();
+
+            var i = 0;
+            foreach (var worksheetPart in workbookPart.WorksheetParts)
             {
-                for (var c = 0; c < columns.Count; c++)
+                var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
+
+                var name = "";
+                if (sheets is { })
                 {
-                    var column = new Spreadsheet.Column
+                    if (sheets[i] is Sheet sheet)
                     {
-                        Header = $"{c}",
-                        // TODO:
-                        // Width = columns[c]?.Width ?? 0.0, 
-                        Width = 130, 
-                        Index = c
-                    };
-                    result.Columns.Add(column);
-                }
-            }
-
-            foreach (var row in sheetData.Elements<Row>())
-            {
-                var fields = new List<object?>();
-
-                foreach (var c in row.Elements<Cell>())
-                {
-                    var field = ToString(c, stringTable);
-                    fields.Add(field);
+                        name = sheet.Name;
+                    }
                 }
 
-                result.Items.Add(fields);
-            }
-
-            for (var r = 0; r < result.Items.Count; r++)
-            {
-                var row = new Spreadsheet.Row
+                var result = new OpenXmlResult
                 {
-                    Header = $"{r}",
-                    // TODO:
-                    Height = 28,
-                    Index = r
+                    Name = name,
+                    Items = new List<List<object?>>(),
+                    Columns = new List<Spreadsheet.Column>(),
+                    Rows = new List<Spreadsheet.Row>(),
                 };
-                result.Rows.Add(row);
+
+                var columns = worksheetPart.Worksheet?.GetFirstChild<Columns>()?.Select(x => x as Column);
+                if (columns is { })
+                {
+                    var c = 0;
+                    foreach (var columnElement in columns)
+                    {
+                        var column = new Spreadsheet.Column
+                        {
+                            Header = $"{c}",
+                            // TODO:
+                            // Width = columnElement?.Width ?? 0.0, 
+                            Width = columnWidth,
+                            Index = c
+                        };
+
+                        result.Columns.Add(column);
+
+                        c++;
+                    }
+                }
+
+                var r = 0;
+                foreach (var rowElement in sheetData.Elements<Row>())
+                {
+                    var row = new Spreadsheet.Row
+                    {
+                        Header = $"{r}",
+                        // TODO:
+                        //Height = rowElement.Height ?? 0.0,
+                        Height = rowHeight,
+                        Index = r
+                    };
+
+                    result.Rows.Add(row);
+
+                    var fields = new List<object?>();
+
+                    foreach (var cellElement in rowElement.Elements<Cell>())
+                    {
+                        var field = ToString(cellElement, stringTable);
+                        fields.Add(field);
+                    }
+
+                    result.Items.Add(fields);
+
+                    r++;
+                }
+
+                results.Add(result);
+                i++;
             }
 
             spreadsheetDocument.Close();
 
-            return result;
+            return results;
         }
     }
 }

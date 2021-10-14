@@ -30,21 +30,25 @@ namespace SpreadsheetDemo
             var path = paths?.FirstOrDefault();
             if (path is { })
             {
-                var result = OpenXmlReader.Read(path);
-                if (result is { })
+                var results = OpenXmlReader.Read(path, 130, 28);
+                if (results is { })
                 {
-                    var spreadsheet = this.FindControl<SpreadsheetControl>("Spreadsheet");
+                    var result = results.FirstOrDefault();
+                    if (result is { })
+                    {
+                        var spreadsheet = this.FindControl<SpreadsheetControl>("Spreadsheet");
 
-                    spreadsheet.Columns.Clear();
-                    spreadsheet.Rows.Clear();
-                    spreadsheet.Items = null;
+                        spreadsheet.Columns.Clear();
+                        spreadsheet.Rows.Clear();
+                        spreadsheet.Items = null;
 
-                    spreadsheet.RowHeadersWidth = 130;
-                    spreadsheet.ColumnHeadersHeight = 28;
+                        spreadsheet.RowHeadersWidth = 130;
+                        spreadsheet.ColumnHeadersHeight = 28;
 
-                    spreadsheet.Columns.AddRange(result.Columns);
-                    spreadsheet.Rows.AddRange(result.Rows);
-                    spreadsheet.Items = result.Items;
+                        spreadsheet.Columns.AddRange(result.Columns);
+                        spreadsheet.Rows.AddRange(result.Rows);
+                        spreadsheet.Items = result.Items;
+                    }
                 }
             }
         }
