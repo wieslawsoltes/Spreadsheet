@@ -16,10 +16,10 @@ namespace SpreadsheetDemo
 #endif
 
             Renderer.DrawFps = true;
-            InitializeSpreadsheet();
+            DemoSpreadsheet();
         }
 
-        private void InitializeSpreadsheet()
+        private void DemoSpreadsheet()
         {
             var spreadsheet = this.FindControl<SpreadsheetControl>("Spreadsheet");
             var columnWidth = 130;
