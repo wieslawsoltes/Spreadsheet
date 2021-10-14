@@ -72,6 +72,7 @@ namespace SpreadsheetDemo
                     
                     spreadsheet.Columns.AddRange(columns);
                     spreadsheet.Rows.AddRange(rows);
+
                     spreadsheet.Items = items;
                 }
             }
