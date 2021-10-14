@@ -8,7 +8,7 @@
 
 An experimental virtualized rows and columns DataGrid control created using ItemsRepeater/ListBox.
 
-![image](https://user-images.githubusercontent.com/2297442/137276696-a28caedd-c1d4-4fde-9000-668b2237e58e.png)
+![image](https://user-images.githubusercontent.com/2297442/137385842-6a848f9b-a3af-492e-9a82-39e90e1108e7.png)
 
 ## License
 
