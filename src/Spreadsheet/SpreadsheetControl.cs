@@ -35,6 +35,7 @@ namespace Spreadsheet
         private RowsPresenter? _rowsItemsRepeater;
         private RowHeadersPresenter? _rowHeadersItemsRepeater;
         private ScrollViewer? _columnHeadersScrollViewer;
+        private ScrollViewer? _rowsItemsRepeaterScrollViewer;
 
         public IList<Column>? Columns
         {
@@ -78,30 +79,51 @@ namespace Spreadsheet
             {
                 if (_rowsItemsRepeater.Scroll is ScrollViewer scrollViewer)
                 {
-                    scrollViewer.ScrollChanged += (_, _) =>
-                    {
-                        if (Columns is null || Rows is null)
-                        {
-                            return;
-                        }
-
-                        var (x, y) = _rowsItemsRepeater.Scroll.Offset;
-
-                        var columnsCount = (double)Columns.Count;
-                        var rowsCount = (double)Rows.Count;
-
-                        var columnIndex = (int)Math.Round(x / (_rowsItemsRepeater.Scroll.Extent.Width / columnsCount), 0);
-                        var ox = columnIndex * (_rowsItemsRepeater.Scroll.Extent.Width / columnsCount);
-
-                        var rowIndex = (int)Math.Round(y / (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
-                        var oy = rowIndex * (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
-
-                        _rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
-                        _rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
-                        _columnHeadersScrollViewer.Offset = new Vector(ox, 0);
-                    };
+                    _rowsItemsRepeaterScrollViewer = scrollViewer;
+                    _rowsItemsRepeaterScrollViewer.ScrollChanged += RowsItemsRepeaterScrollViewerOnScrollChanged;
                 }
-            };     
+            };
+
+            _rowsItemsRepeater.DetachedFromVisualTree += (_, _) =>
+            {
+                if (_rowsItemsRepeaterScrollViewer is { })
+                {
+                    _rowsItemsRepeaterScrollViewer.ScrollChanged -= RowsItemsRepeaterScrollViewerOnScrollChanged;
+                }
+            };
+        }
+
+        private void RowsItemsRepeaterScrollViewerOnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            InvalidateScroll();
+        }
+
+        private void InvalidateScroll()
+        {
+            if (_rowsItemsRepeater is null || _rowHeadersItemsRepeater is null || _columnHeadersScrollViewer is null)
+            {
+                return;
+            }
+
+            if (Columns is null || Rows is null)
+            {
+                return;
+            }
+
+            var (x, y) = _rowsItemsRepeater.Scroll.Offset;
+
+            var columnsCount = (double)Columns.Count;
+            var rowsCount = (double)Rows.Count;
+
+            var columnIndex = (int)Math.Round(x / (_rowsItemsRepeater.Scroll.Extent.Width / columnsCount), 0);
+            var ox = columnIndex * (_rowsItemsRepeater.Scroll.Extent.Width / columnsCount);
+
+            var rowIndex = (int)Math.Round(y / (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
+            var oy = rowIndex * (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
+
+            _rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
+            _rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
+            _columnHeadersScrollViewer.Offset = new Vector(ox, 0);
         }
     }
 }
