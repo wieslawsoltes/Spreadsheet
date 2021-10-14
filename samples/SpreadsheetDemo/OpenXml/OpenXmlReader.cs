@@ -4,7 +4,7 @@ using System.Linq;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
-namespace SpreadsheetDemo
+namespace SpreadsheetDemo.OpenXml
 {
     public class OpenXmlReader
     {

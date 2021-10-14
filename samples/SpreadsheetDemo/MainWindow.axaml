@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpreadsheetDemo"
+        xmlns:openXml="clr-namespace:SpreadsheetDemo.OpenXml"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SpreadsheetDemo.MainWindow"
         Width="800" Height="450" WindowStartupLocation="CenterScreen"
@@ -22,74 +23,31 @@
         </MenuItem>
       </Menu>
     </DockPanel>
-    
-    <!--
-    <DockPanel>
-      <ListBox Name="ListBox"
-               Items="{Binding Results}"
-               DockPanel.Dock="Left">
-        <ListBox.ItemTemplate>
-          <DataTemplate DataType="local:OpenXmlResult">
-            <TextBlock Text="{Binding Name}"/>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
-      <ContentControl Content="{Binding #ListBox.SelectedItem}">
-        <ContentControl.ContentTemplate>
-          <DataTemplate DataType="local:OpenXmlResult">
-            <SpreadsheetControl Items="{Binding Items}"
-                                Rows="{Binding Rows}"
-                                Columns="{Binding Columns}"
-                                RowHeadersWidth="{Binding RowHeadersWidth}"
-                                ColumnHeadersHeight="{Binding ColumnHeadersHeight}"/>
-          </DataTemplate>  
-        </ContentControl.ContentTemplate>
-      </ContentControl>
-    </DockPanel>
-    -->
 
     <DockPanel>
       <TabStrip Name="TabStrip"
                 Items="{Binding Results}"
                 DockPanel.Dock="Bottom">
         <TabStrip.ItemTemplate>
-          <DataTemplate DataType="local:OpenXmlResult">
+          <DataTemplate DataType="openXml:OpenXmlResult">
             <TextBlock Text="{Binding Name}"/>
           </DataTemplate>
         </TabStrip.ItemTemplate>
       </TabStrip>
-      <ContentControl Content="{Binding #TabStrip.SelectedItem}">
-        <ContentControl.ContentTemplate>
-          <DataTemplate DataType="local:OpenXmlResult">
+      <Carousel Items="{Binding Results}" 
+                SelectedItem="{Binding #TabStrip.SelectedItem}"
+                IsVirtualized="False">
+        <Carousel.DataTemplates>
+          <DataTemplate DataType="openXml:OpenXmlResult">
             <SpreadsheetControl Items="{Binding Items}"
                                 Rows="{Binding Rows}"
                                 Columns="{Binding Columns}"
                                 RowHeadersWidth="{Binding RowHeadersWidth}"
                                 ColumnHeadersHeight="{Binding ColumnHeadersHeight}"/>
           </DataTemplate>  
-        </ContentControl.ContentTemplate>
-      </ContentControl>
+        </Carousel.DataTemplates>
+      </Carousel>
     </DockPanel>
-
-    <!--
-    <TabControl Items="{Binding Results}"
-                TabStripPlacement="Bottom">
-      <TabControl.ItemTemplate>
-        <DataTemplate DataType="local:OpenXmlResult">
-          <TextBlock Text="{Binding Name}"/>
-        </DataTemplate>
-      </TabControl.ItemTemplate>
-      <TabControl.ContentTemplate>
-        <DataTemplate DataType="local:OpenXmlResult">
-          <SpreadsheetControl Items="{Binding Items}"
-                              Rows="{Binding Rows}"
-                              Columns="{Binding Columns}"
-                              RowHeadersWidth="{Binding RowHeadersWidth}"
-                              ColumnHeadersHeight="{Binding ColumnHeadersHeight}"/>
-        </DataTemplate>  
-      </TabControl.ContentTemplate>
-    </TabControl>
-    -->
 
   </DockPanel>
 

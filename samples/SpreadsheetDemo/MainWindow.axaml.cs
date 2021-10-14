@@ -8,6 +8,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Spreadsheet;
+using SpreadsheetDemo.OpenXml;
 
 namespace SpreadsheetDemo
 {
