@@ -6,6 +6,13 @@ using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace SpreadsheetDemo
 {
+    public class OpenXmlResult
+    {
+        public List<List<object?>> Items;
+        public List<Spreadsheet.Column> Columns;
+        public List<Spreadsheet.Row> Rows;
+    }
+    
     public class OpenXmlReader
     {
         private static string? ToString(Cell c, SharedStringTablePart? stringTable)
@@ -50,8 +57,10 @@ namespace SpreadsheetDemo
             return null;
         }
 
-        public static List<List<object?>>? Read(Stream stream)
+        public static OpenXmlResult? Read(string path)
         {
+            using var stream = File.OpenRead(path);
+            
             var spreadsheetDocument = SpreadsheetDocument.Open(stream, false);
 
             var workbookPart = spreadsheetDocument.WorkbookPart;
@@ -60,30 +69,65 @@ namespace SpreadsheetDemo
                 return null;
             }
 
-            var items = new List<List<object?>>();
-
             var worksheetPart = workbookPart.WorksheetParts.First();
 
             var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
 
             var stringTable = workbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
 
+            var result = new OpenXmlResult
+            {
+                Items = new List<List<object?>>(),
+                Columns = new List<Spreadsheet.Column>(),
+                Rows = new List<Spreadsheet.Row>(),
+            };
+
+            var columns = worksheetPart.Worksheet?.GetFirstChild<Columns>()?.Select(x => x as Column).ToList();
+            
+            if (columns is { })
+            {
+                for (var c = 0; c < columns.Count; c++)
+                {
+                    var column = new Spreadsheet.Column
+                    {
+                        Header = $"{c}",
+                        // TODO:
+                        // Width = columns[c]?.Width ?? 0.0, 
+                        Width = 130, 
+                        Index = c
+                    };
+                    result.Columns.Add(column);
+                }
+            }
+
             foreach (var row in sheetData.Elements<Row>())
             {
-                var fields = row.Elements<Cell>().Select(c => (object?)ToString(c, stringTable)).ToList();
-                items.Add(fields);
+                var fields = new List<object?>();
+
+                foreach (var c in row.Elements<Cell>())
+                {
+                    var field = ToString(c, stringTable);
+                    fields.Add(field);
+                }
+
+                result.Items.Add(fields);
+            }
+
+            for (var r = 0; r < result.Items.Count; r++)
+            {
+                var row = new Spreadsheet.Row
+                {
+                    Header = $"{r}",
+                    // TODO:
+                    Height = 28,
+                    Index = r
+                };
+                result.Rows.Add(row);
             }
 
             spreadsheetDocument.Close();
 
-            return items;
-        }
-
-        public static List<List<object?>>? Read(string path)
-        {
-            using var stream = File.OpenRead(path);
-            var items = Read(stream)?.ToList();
-            return items;
+            return result;
         }
     }
 }
