@@ -9,14 +9,14 @@ namespace Spreadsheet
 {
     public class SpreadsheetControl : TemplatedControl
     {
-        public static readonly DirectProperty<SpreadsheetControl, AvaloniaList<Column>> ColumnsProperty = 
-            AvaloniaProperty.RegisterDirect<SpreadsheetControl, AvaloniaList<Column>>(
+        public static readonly DirectProperty<SpreadsheetControl, IList<Column>?> ColumnsProperty = 
+            AvaloniaProperty.RegisterDirect<SpreadsheetControl, IList<Column>?>(
                 "Columns", 
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
-        public static readonly DirectProperty<SpreadsheetControl, AvaloniaList<Row>> RowsProperty = 
-            AvaloniaProperty.RegisterDirect<SpreadsheetControl, AvaloniaList<Row>>(
+        public static readonly DirectProperty<SpreadsheetControl, IList<Row>?> RowsProperty = 
+            AvaloniaProperty.RegisterDirect<SpreadsheetControl, IList<Row>?>(
                 "Rows", 
                 o => o.Rows, 
                 (o, v) => o.Rows = v);
@@ -30,19 +30,19 @@ namespace Spreadsheet
         public static readonly StyledProperty<List<List<object?>>?> ItemsProperty = 
             AvaloniaProperty.Register<SpreadsheetControl, List<List<object?>>?>(nameof(Items));
 
-        private AvaloniaList<Column> _columns = new();
-        private AvaloniaList<Row> _rows = new();
+        private IList<Column>? _columns = new AvaloniaList<Column>();
+        private IList<Row>? _rows = new AvaloniaList<Row>();
         private RowsPresenter? _rowsItemsRepeater;
         private RowHeadersPresenter? _rowHeadersItemsRepeater;
         private ScrollViewer? _columnHeadersScrollViewer;
 
-        public AvaloniaList<Column> Columns
+        public IList<Column>? Columns
         {
             get => _columns;
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
-        public AvaloniaList<Row> Rows
+        public IList<Row>? Rows
         {
             get => _rows;
             set => SetAndRaise(RowsProperty, ref _rows, value);
@@ -80,6 +80,11 @@ namespace Spreadsheet
                 {
                     scrollViewer.ScrollChanged += (_, _) =>
                     {
+                        if (Columns is null || Rows is null)
+                        {
+                            return;
+                        }
+
                         var (x, y) = _rowsItemsRepeater.Scroll.Offset;
 
                         var columnsCount = (double)Columns.Count;

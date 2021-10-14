@@ -1,15 +1,19 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Spreadsheet;
 
 namespace SpreadsheetDemo
 {
     public partial class MainWindow : Window
     {
+        public ObservableCollection<OpenXmlResult> Results { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -18,7 +22,12 @@ namespace SpreadsheetDemo
 #endif
 
             Renderer.DrawFps = true;
+
+            Results = new ObservableCollection<OpenXmlResult>();
+            
             DemoSpreadsheet();
+
+            DataContext = this;
         }
 
         public async Task OpenSpreadsheet()
@@ -30,37 +39,36 @@ namespace SpreadsheetDemo
             var path = paths?.FirstOrDefault();
             if (path is { })
             {
-                var results = OpenXmlReader.Read(path, 130, 28);
-                if (results is { })
+                await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    var result = results.FirstOrDefault();
-                    if (result is { })
+                    var results = OpenXmlReader.Read(path, 130, 28);
+                    if (results is { })
                     {
-                        var spreadsheet = this.FindControl<SpreadsheetControl>("Spreadsheet");
+                        Results.Clear();
 
-                        spreadsheet.Columns.Clear();
-                        spreadsheet.Rows.Clear();
-                        spreadsheet.Items = null;
-
-                        spreadsheet.RowHeadersWidth = 130;
-                        spreadsheet.ColumnHeadersHeight = 28;
-
-                        spreadsheet.Columns.AddRange(result.Columns);
-                        spreadsheet.Rows.AddRange(result.Rows);
-                        spreadsheet.Items = result.Items;
+                        foreach (var result in results)
+                        {
+                            Results.Add(result);
+                        }
                     }
-                }
+                });
             }
         }
         
         private void DemoSpreadsheet()
         {
-            var spreadsheet = this.FindControl<SpreadsheetControl>("Spreadsheet");
+            var result = new OpenXmlResult
+            {
+                Name = "Demo",
+                RowHeadersWidth = 130,
+                ColumnHeadersHeight = 28,
+                Items = new List<List<object?>>(),
+                Columns = new List<Spreadsheet.Column>(),
+                Rows = new List<Spreadsheet.Row>(),
+            };
+
             var columnWidth = 130;
             var rowHeight = 28;
-            var columns = new List<Column>();
-            var rows = new List<Row>();
-            var items = new List<List<object?>>();
 
             var columnsCount = 100;
             var rowsCount = 10_000;
@@ -73,7 +81,7 @@ namespace SpreadsheetDemo
                     Height = rowHeight,
                     Index = r
                 };
-                rows.Add(row);
+                result.Rows.Add(row);
             }
 
             for (var c = 0; c < columnsCount; c++)
@@ -84,26 +92,20 @@ namespace SpreadsheetDemo
                     Width = columnWidth,
                     Index = c
                 };
-                columns.Add(column);
+                result.Columns.Add(column);
             }
 
             for (var r = 0; r < rowsCount; r++)
             {
-                items.Insert(r, new List<object?>());
+                result.Items.Insert(r, new List<object?>());
 
                 for (var c = 0; c < columnsCount; c++)
                 {
-                    items[r].Insert(c, $"Items[{r}][{c}]");
+                    result.Items[r].Insert(c, $"Items[{r}][{c}]");
                 }
             }
-
-            spreadsheet.RowHeadersWidth = 130;
-            spreadsheet.ColumnHeadersHeight = 28;
-
-            spreadsheet.Columns.AddRange(columns);
-            spreadsheet.Rows.AddRange(rows);
-
-            spreadsheet.Items = items;
+            
+            Results.Add(result);
         }
 
         private void InitializeComponent()

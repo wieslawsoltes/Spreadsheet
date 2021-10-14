@@ -71,7 +71,7 @@ namespace SpreadsheetDemo
             var i = 0;
             foreach (var worksheetPart in workbookPart.WorksheetParts)
             {
-                var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
+                var sheetData = worksheetPart.Worksheet.Elements<SheetData>().FirstOrDefault();
 
                 var name = "";
                 if (sheets is { })
@@ -85,12 +85,14 @@ namespace SpreadsheetDemo
                 var result = new OpenXmlResult
                 {
                     Name = name,
+                    RowHeadersWidth = 130,
+                    ColumnHeadersHeight = 28,
                     Items = new List<List<object?>>(),
                     Columns = new List<Spreadsheet.Column>(),
                     Rows = new List<Spreadsheet.Row>(),
                 };
 
-                var columns = worksheetPart.Worksheet?.GetFirstChild<Columns>()?.Select(x => x as Column);
+                var columns = worksheetPart.Worksheet.GetFirstChild<Columns>()?.Select(x => x as Column);
                 if (columns is { })
                 {
                     var c = 0;
@@ -111,31 +113,34 @@ namespace SpreadsheetDemo
                     }
                 }
 
-                var r = 0;
-                foreach (var rowElement in sheetData.Elements<Row>())
+                if (sheetData is { })
                 {
-                    var row = new Spreadsheet.Row
+                    var r = 0;
+                    foreach (var rowElement in sheetData.Elements<Row>())
                     {
-                        Header = $"{r}",
-                        // TODO:
-                        //Height = rowElement.Height ?? 0.0,
-                        Height = rowHeight,
-                        Index = r
-                    };
+                        var row = new Spreadsheet.Row
+                        {
+                            Header = $"{r}",
+                            // TODO:
+                            //Height = rowElement.Height ?? 0.0,
+                            Height = rowHeight,
+                            Index = r
+                        };
 
-                    result.Rows.Add(row);
+                        result.Rows.Add(row);
 
-                    var fields = new List<object?>();
+                        var fields = new List<object?>();
 
-                    foreach (var cellElement in rowElement.Elements<Cell>())
-                    {
-                        var field = ToString(cellElement, stringTable);
-                        fields.Add(field);
+                        foreach (var cellElement in rowElement.Elements<Cell>())
+                        {
+                            var field = ToString(cellElement, stringTable);
+                            fields.Add(field);
+                        }
+
+                        result.Items.Add(fields);
+
+                        r++;
                     }
-
-                    result.Items.Add(fields);
-
-                    r++;
                 }
 
                 results.Add(result);

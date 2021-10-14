@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
-using DocumentFormat.OpenXml;
 
 namespace SpreadsheetDemo
 {
     public class OpenXmlResult
     {
         public string? Name { get; set; }
+
+        public double RowHeadersWidth { get; set; }
+
+        public double ColumnHeadersHeight { get; set; }
 
         public List<List<object?>>? Items { get; set; }
 

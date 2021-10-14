@@ -19,7 +19,47 @@
       </Menu>
     </DockPanel>
 
-    <SpreadsheetControl Name="Spreadsheet" />
+    <DockPanel>
+      <TabStrip Name="TabStrip"
+                Items="{Binding Results}"
+                DockPanel.Dock="Bottom">
+        <TabStrip.ItemTemplate>
+          <DataTemplate DataType="local:OpenXmlResult">
+            <TextBlock Text="{Binding Name}"/>
+          </DataTemplate>
+        </TabStrip.ItemTemplate>
+      </TabStrip>
+      <ContentControl Content="{Binding #TabStrip.SelectedItem}">
+        <ContentControl.ContentTemplate>
+          <DataTemplate DataType="local:OpenXmlResult">
+            <SpreadsheetControl Items="{Binding Items}"
+                                Rows="{Binding Rows}"
+                                Columns="{Binding Columns}"
+                                RowHeadersWidth="{Binding RowHeadersWidth}"
+                                ColumnHeadersHeight="{Binding ColumnHeadersHeight}"/>
+          </DataTemplate>  
+        </ContentControl.ContentTemplate>
+      </ContentControl>
+    </DockPanel>
+    <!--
+    <TabControl Items="{Binding Results}"
+                TabStripPlacement="Bottom">
+      <TabControl.ItemTemplate>
+        <DataTemplate DataType="local:OpenXmlResult">
+          <TextBlock Text="{Binding Name}"/>
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+      <TabControl.ContentTemplate>
+        <DataTemplate DataType="local:OpenXmlResult">
+          <SpreadsheetControl Items="{Binding Items}"
+                              Rows="{Binding Rows}"
+                              Columns="{Binding Columns}"
+                              RowHeadersWidth="{Binding RowHeadersWidth}"
+                              ColumnHeadersHeight="{Binding ColumnHeadersHeight}"/>
+        </DataTemplate>  
+      </TabControl.ContentTemplate>
+    </TabControl>
+    -->
 
   </DockPanel>
 
