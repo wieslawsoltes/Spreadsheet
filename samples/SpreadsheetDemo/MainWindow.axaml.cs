@@ -78,8 +78,8 @@ namespace SpreadsheetDemo
                 RowHeadersWidth = 130,
                 ColumnHeadersHeight = 28,
                 Items = new List<List<object?>>(),
-                Columns = new List<Spreadsheet.Column>(),
-                Rows = new List<Spreadsheet.Row>(),
+                Columns = new List<Column>(),
+                Rows = new List<Row>(),
             };
 
             var columnWidth = 130;
