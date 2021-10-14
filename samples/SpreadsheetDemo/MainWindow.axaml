@@ -14,7 +14,11 @@
                DockPanel.Dock="Top">
       <Menu>
         <MenuItem Header="_File">
-          <MenuItem Header="Open..." Command="{Binding $parent[local:MainWindow].OpenSpreadsheet}" />
+          <MenuItem Header="_Open..." Command="{Binding $parent[local:MainWindow].OpenSpreadsheet}" />
+          <Separator />
+          <MenuItem Header="_Close" Command="{Binding $parent[local:MainWindow].CloseSpreadsheet}" />
+          <Separator />
+          <MenuItem Header="E_xit" Command="{Binding $parent[local:MainWindow].Exit}" />
         </MenuItem>
       </Menu>
     </DockPanel>

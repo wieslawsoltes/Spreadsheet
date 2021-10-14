@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Spreadsheet;
@@ -54,7 +55,20 @@ namespace SpreadsheetDemo
                 });
             }
         }
-        
+
+        public void CloseSpreadsheet()
+        {
+            Results.Clear();
+        }
+
+        public void Exit()
+        {
+            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+            {
+                lifetime.Shutdown();
+            }
+        }
+
         private void DemoSpreadsheet()
         {
             var result = new OpenXmlResult
