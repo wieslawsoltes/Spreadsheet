@@ -98,6 +98,8 @@ namespace Spreadsheet
             InvalidateScroll();
         }
 
+        private bool _isUpdatingOffset = false;
+        
         private void InvalidateScroll()
         {
             if (_rowsItemsRepeater is null || _rowHeadersItemsRepeater is null || _columnHeadersScrollViewer is null)
@@ -110,6 +112,13 @@ namespace Spreadsheet
                 return;
             }
 
+            if (_isUpdatingOffset)
+            {
+                return;
+            }
+
+            _isUpdatingOffset = true;
+            
             var (x, y) = _rowsItemsRepeater.Scroll.Offset;
 
             var columnsCount = (double)Columns.Count;
@@ -124,6 +133,8 @@ namespace Spreadsheet
             _rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
             _rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
             _columnHeadersScrollViewer.Offset = new Vector(ox, 0);
+
+            _isUpdatingOffset = false;
         }
     }
 }
