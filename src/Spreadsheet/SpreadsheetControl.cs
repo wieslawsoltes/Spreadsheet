@@ -32,6 +32,9 @@ namespace Spreadsheet
 
         private AvaloniaList<Column> _columns = new();
         private AvaloniaList<Row> _rows = new();
+        private RowsPresenter? _rowsItemsRepeater;
+        private RowHeadersPresenter? _rowHeadersItemsRepeater;
+        private ScrollViewer? _columnHeadersScrollViewer;
 
         public AvaloniaList<Column> Columns
         {
@@ -67,30 +70,30 @@ namespace Spreadsheet
         {
             base.OnApplyTemplate(e);
             
-            var rowsItemsRepeater = e.NameScope.Find<RowsPresenter>("PART_RowsItemsRepeater");
-            var rowHeadersItemsRepeater = e.NameScope.Find<RowHeadersPresenter>("PART_RowHeadersItemsRepeater");
-            var columnHeadersScrollViewer = e.NameScope.Find<ScrollViewer>("PART_ColumnHeadersScrollViewer");
+            _rowsItemsRepeater = e.NameScope.Find<RowsPresenter>("PART_RowsItemsRepeater");
+            _rowHeadersItemsRepeater = e.NameScope.Find<RowHeadersPresenter>("PART_RowHeadersItemsRepeater");
+            _columnHeadersScrollViewer = e.NameScope.Find<ScrollViewer>("PART_ColumnHeadersScrollViewer");
 
-            rowsItemsRepeater.TemplateApplied += (_, _) =>
+            _rowsItemsRepeater.TemplateApplied += (_, _) =>
             {
-                if (rowsItemsRepeater.Scroll is ScrollViewer scrollViewer)
+                if (_rowsItemsRepeater.Scroll is ScrollViewer scrollViewer)
                 {
                     scrollViewer.ScrollChanged += (_, _) =>
                     {
-                        var (x, y) = rowsItemsRepeater.Scroll.Offset;
+                        var (x, y) = _rowsItemsRepeater.Scroll.Offset;
 
                         var columnsCount = (double)Columns.Count;
                         var rowsCount = (double)Rows.Count;
 
-                        var columnIndex = (int)Math.Round(x / (rowsItemsRepeater.Scroll.Extent.Width / columnsCount), 0);
-                        var ox = columnIndex * (rowsItemsRepeater.Scroll.Extent.Width / columnsCount);
+                        var columnIndex = (int)Math.Round(x / (_rowsItemsRepeater.Scroll.Extent.Width / columnsCount), 0);
+                        var ox = columnIndex * (_rowsItemsRepeater.Scroll.Extent.Width / columnsCount);
 
-                        var rowIndex = (int)Math.Round(y / (rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
-                        var oy = rowIndex * (rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
+                        var rowIndex = (int)Math.Round(y / (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
+                        var oy = rowIndex * (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
 
-                        rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
-                        rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
-                        columnHeadersScrollViewer.Offset = new Vector(ox, 0);
+                        _rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
+                        _rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
+                        _columnHeadersScrollViewer.Offset = new Vector(ox, 0);
                     };
                 }
             };     
