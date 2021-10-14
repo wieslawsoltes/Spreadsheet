@@ -17,6 +17,7 @@
                         Grid.Row="0">
             <ColumnHeadersPresenter Name="PART_ColumnHeadersItemsRepeater"
                                     Items="{TemplateBinding Columns}"
+                                    Tag="{TemplateBinding}"
                                     ClipToBounds="False">
               <ColumnHeadersPresenter.Layout>
                 <UniformGridLayout MaximumRowsOrColumns="1" Orientation="Vertical" />
@@ -24,7 +25,7 @@
               <ColumnHeadersPresenter.ItemTemplate>
                 <DataTemplate DataType="Column">
                   <ColumnHeader Width="{Binding Width}"
-                                Height="{Binding $parent[SpreadsheetControl].ColumnHeadersHeight}">
+                                Height="{Binding #PART_ColumnHeadersItemsRepeater.Tag.ColumnHeadersHeight}">
                     <TextBlock Text="{Binding Header}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
@@ -36,6 +37,7 @@
 
           <RowHeadersPresenter Name="PART_RowHeadersItemsRepeater"
                                Items="{TemplateBinding Rows}"
+                               Tag="{TemplateBinding}"
                                Grid.Column="0"
                                Grid.Row="1">
             <RowHeadersPresenter.ItemsPanel>
@@ -45,7 +47,7 @@
             </RowHeadersPresenter.ItemsPanel>
             <RowHeadersPresenter.ItemTemplate>
               <DataTemplate DataType="Row">
-                <RowHeader Width="{Binding $parent[SpreadsheetControl].RowHeadersWidth}"
+                <RowHeader Width="{Binding #PART_RowHeadersItemsRepeater.Tag.RowHeadersWidth}"
                            Height="{Binding Height}">
                   <TextBlock Text="{Binding Header}"
                              HorizontalAlignment="Center"
@@ -57,6 +59,7 @@
 
           <RowsPresenter Name="PART_RowsItemsRepeater"
                          Items="{TemplateBinding Rows}"
+                         Tag="{TemplateBinding}"
                          Grid.Column="1"
                          Grid.Row="1">
             <RowsPresenter.ItemsPanel>
@@ -67,7 +70,7 @@
             <RowsPresenter.ItemTemplate>
               <DataTemplate DataType="Row">
                 <CellsPresenter Name="PART_CellsItemsRepeater"
-                                Items="{Binding $parent[SpreadsheetControl].Columns}"
+                                Items="{Binding #PART_RowsItemsRepeater.Tag.Columns}"
                                 Height="{Binding Height}"
                                 ClipToBounds="False">
                   <CellsPresenter.Layout>
@@ -82,7 +85,7 @@
                                    FontSize="{DynamicResource FontSizeSmall}">
                           <TextBlock.Text>
                             <MultiBinding Converter="{x:Static CellDataConverter.Instance}">
-                              <Binding Path="$parent[SpreadsheetControl].Items" />
+                              <Binding Path="#PART_RowsItemsRepeater.Tag.Items" />
                               <Binding Path="Index" />
                               <Binding Path="DataContext.Index" ElementName="PART_CellsItemsRepeater" />
                             </MultiBinding>
