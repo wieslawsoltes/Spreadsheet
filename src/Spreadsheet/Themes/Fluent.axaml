@@ -86,26 +86,8 @@
                               <Binding Path="Index" />
                               <Binding Path="DataContext.Index" ElementName="PART_CellsItemsRepeater" />
                             </MultiBinding>
-                            <!--<MultiBinding StringFormat="{}{0},{1}">
-                              <Binding Path="Index"/>
-                              <Binding Path="DataContext.Index" ElementName="PART_CellsItemsRepeater" />
-                            </MultiBinding>-->
                           </TextBlock.Text>
                         </TextBlock>
-                        <!--
-                        <ToolTip.Tip>
-                          <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                              <TextBlock Text="Column: "></TextBlock>
-                              <TextBlock Text="{Binding Header}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                              <TextBlock Text="Row: "></TextBlock>
-                              <TextBlock Text="{Binding #PART_CellsItemsRepeater.DataContext.Header}"/>
-                            </StackPanel>
-                          </StackPanel>
-                        </ToolTip.Tip>
-                        -->
                       </Cell>
                     </DataTemplate>
                   </CellsPresenter.ItemTemplate>
