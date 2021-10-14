@@ -18,6 +18,31 @@
         </MenuItem>
       </Menu>
     </DockPanel>
+    
+    <!--
+    <DockPanel>
+      <ListBox Name="ListBox"
+               Items="{Binding Results}"
+               DockPanel.Dock="Left">
+        <ListBox.ItemTemplate>
+          <DataTemplate DataType="local:OpenXmlResult">
+            <TextBlock Text="{Binding Name}"/>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <ContentControl Content="{Binding #ListBox.SelectedItem}">
+        <ContentControl.ContentTemplate>
+          <DataTemplate DataType="local:OpenXmlResult">
+            <SpreadsheetControl Items="{Binding Items}"
+                                Rows="{Binding Rows}"
+                                Columns="{Binding Columns}"
+                                RowHeadersWidth="{Binding RowHeadersWidth}"
+                                ColumnHeadersHeight="{Binding ColumnHeadersHeight}"/>
+          </DataTemplate>  
+        </ContentControl.ContentTemplate>
+      </ContentControl>
+    </DockPanel>
+    -->
 
     <DockPanel>
       <TabStrip Name="TabStrip"
@@ -41,6 +66,7 @@
         </ContentControl.ContentTemplate>
       </ContentControl>
     </DockPanel>
+
     <!--
     <TabControl Items="{Binding Results}"
                 TabStripPlacement="Bottom">
