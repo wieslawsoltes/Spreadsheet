@@ -130,6 +130,11 @@ namespace Spreadsheet
             var rowIndex = (int)Math.Round(y / (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount), 0);
             var oy = rowIndex * (_rowsItemsRepeater.Scroll.Extent.Height / rowsCount);
 
+            if (double.IsNaN(ox) || double.IsNaN(oy))
+            {
+                return;
+            }
+            
             _rowsItemsRepeater.Scroll.Offset = new Vector(ox, oy);
             _rowHeadersItemsRepeater.Scroll.Offset = new Vector(0, oy);
             _columnHeadersScrollViewer.Offset = new Vector(ox, 0);
