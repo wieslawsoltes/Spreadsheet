@@ -6,7 +6,9 @@
 [![NuGet](https://img.shields.io/nuget/v/Spreadsheet.svg)](https://www.nuget.org/packages/Spreadsheet)
 [![NuGet](https://img.shields.io/nuget/dt/Spreadsheet.svg)](https://www.nuget.org/packages/Spreadsheet)
 
-Experimental virtualized rows and columns DataGrid control created using ItemsRepeater/ListBox.
+An experimental virtualized rows and columns DataGrid control created using ItemsRepeater/ListBox.
+
+![image](https://user-images.githubusercontent.com/2297442/137276696-a28caedd-c1d4-4fde-9000-668b2237e58e.png)
 
 ## License
 
