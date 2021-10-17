@@ -12,6 +12,7 @@ ProjectSection(SolutionItems) = preProject
 	build.sh = build.sh
 	global.json = global.json
 	build\spreadsheetcontrol.public.snk = build\spreadsheet.public.snk
+	azure-pipelines.yml = azure-pipelines.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8D290F10-DBA3-48FF-AE7B-C5226827692F}"
