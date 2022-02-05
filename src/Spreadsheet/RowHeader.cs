@@ -3,21 +3,20 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
-namespace Spreadsheet
+namespace Spreadsheet;
+
+public class RowHeader : Decorator
 {
-    public class RowHeader : Decorator
+    public override void Render(DrawingContext context)
     {
-        public override void Render(DrawingContext context)
-        {
-            base.Render(context);
+        base.Render(context);
 
-            var thickness = 1.0;
-            var offset = thickness * 0.5;
+        var thickness = 1.0;
+        var offset = thickness * 0.5;
 
-            context.DrawRectangle(
-                Brushes.LightGray, 
-                new ImmutablePen(Brushes.DarkGray, thickness), 
-                new Rect(new Point(offset, offset), new Size( Bounds.Size.Width + offset,  Bounds.Size.Height + offset)));
-        }
+        context.DrawRectangle(
+            Brushes.LightGray, 
+            new ImmutablePen(Brushes.DarkGray, thickness), 
+            new Rect(new Point(offset, offset), new Size( Bounds.Size.Width + offset,  Bounds.Size.Height + offset)));
     }
 }

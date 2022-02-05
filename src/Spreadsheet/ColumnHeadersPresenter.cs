@@ -1,8 +1,7 @@
 using Avalonia.Controls;
 
-namespace Spreadsheet
+namespace Spreadsheet;
+
+public class ColumnHeadersPresenter : ItemsRepeater
 {
-    public class ColumnHeadersPresenter : ItemsRepeater
-    {
-    }
 }
