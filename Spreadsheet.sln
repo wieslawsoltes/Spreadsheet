@@ -49,6 +49,7 @@ ProjectSection(SolutionItems) = preProject
 	build\SourceLink.props = build\SourceLink.props
 	build\XUnit.props = build\XUnit.props
 	build\DocumentFormat.OpenXml.props = build\DocumentFormat.OpenXml.props
+	build\Avalonia.Web.Blazor.props = build\Avalonia.Web.Blazor.props
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet.UnitTests", "tests\Spreadsheet.UnitTests\Spreadsheet.UnitTests.csproj", "{77965AB6-3756-4ED0-BE3D-FF0EA4CEFCE8}"
@@ -56,6 +57,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_build", "build\build\_build.csproj", "{FBC2BF04-87A5-434D-BF13-E3584A2E92AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadsheetSample.Desktop", "samples\SpreadsheetSample.Desktop\SpreadsheetSample.Desktop.csproj", "{0C3B3788-6F93-4141-8759-8AE2B09508FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadsheetSample.Web", "samples\SpreadsheetSample.Web\SpreadsheetSample.Web.csproj", "{CF2F2875-B13E-427A-B506-5FA3DEBEAFDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +86,10 @@ Global
 		{0C3B3788-6F93-4141-8759-8AE2B09508FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C3B3788-6F93-4141-8759-8AE2B09508FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C3B3788-6F93-4141-8759-8AE2B09508FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2F2875-B13E-427A-B506-5FA3DEBEAFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2F2875-B13E-427A-B506-5FA3DEBEAFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2F2875-B13E-427A-B506-5FA3DEBEAFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2F2875-B13E-427A-B506-5FA3DEBEAFDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A2725609-49CC-4C22-A9FB-C2EDFEB0C7B1} = {B8DCFA10-262E-44CB-BBA8-A647AE3B2181}
@@ -93,5 +100,6 @@ Global
 		{77965AB6-3756-4ED0-BE3D-FF0EA4CEFCE8} = {29F297F4-F15E-4207-903A-F38C98F2BED3}
 		{FBC2BF04-87A5-434D-BF13-E3584A2E92AC} = {B8DCFA10-262E-44CB-BBA8-A647AE3B2181}
 		{0C3B3788-6F93-4141-8759-8AE2B09508FF} = {082D1C12-E076-42BD-B58C-7E21A6ECDA45}
+		{CF2F2875-B13E-427A-B506-5FA3DEBEAFDC} = {082D1C12-E076-42BD-B58C-7E21A6ECDA45}
 	EndGlobalSection
 EndGlobal
