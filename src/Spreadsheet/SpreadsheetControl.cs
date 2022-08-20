@@ -75,22 +75,25 @@ public class SpreadsheetControl : TemplatedControl
         _rowHeadersItemsRepeater = e.NameScope.Find<RowHeadersPresenter>("PART_RowHeadersItemsRepeater");
         _columnHeadersScrollViewer = e.NameScope.Find<ScrollViewer>("PART_ColumnHeadersScrollViewer");
 
-        _rowsItemsRepeater.TemplateApplied += (_, _) =>
+        if (_rowsItemsRepeater is { })
         {
-            if (_rowsItemsRepeater.Scroll is ScrollViewer scrollViewer)
+            _rowsItemsRepeater.TemplateApplied += (_, _) =>
             {
-                _rowsItemsRepeaterScrollViewer = scrollViewer;
-                _rowsItemsRepeaterScrollViewer.ScrollChanged += RowsItemsRepeaterScrollViewerOnScrollChanged;
-            }
-        };
+                if (_rowsItemsRepeater.Scroll is ScrollViewer scrollViewer)
+                {
+                    _rowsItemsRepeaterScrollViewer = scrollViewer;
+                    _rowsItemsRepeaterScrollViewer.ScrollChanged += RowsItemsRepeaterScrollViewerOnScrollChanged;
+                }
+            };
 
-        _rowsItemsRepeater.DetachedFromVisualTree += (_, _) =>
-        {
-            if (_rowsItemsRepeaterScrollViewer is { })
+            _rowsItemsRepeater.DetachedFromVisualTree += (_, _) =>
             {
-                _rowsItemsRepeaterScrollViewer.ScrollChanged -= RowsItemsRepeaterScrollViewerOnScrollChanged;
-            }
-        };
+                if (_rowsItemsRepeaterScrollViewer is { })
+                {
+                    _rowsItemsRepeaterScrollViewer.ScrollChanged -= RowsItemsRepeaterScrollViewerOnScrollChanged;
+                }
+            };
+        }
     }
 
     private void RowsItemsRepeaterScrollViewerOnScrollChanged(object? sender, ScrollChangedEventArgs e)
@@ -102,7 +105,7 @@ public class SpreadsheetControl : TemplatedControl
         
     private void InvalidateScroll()
     {
-        if (_rowsItemsRepeater is null || _rowHeadersItemsRepeater is null || _columnHeadersScrollViewer is null)
+        if (_rowsItemsRepeater?.Scroll is null || _rowHeadersItemsRepeater?.Scroll is null || _columnHeadersScrollViewer is null)
         {
             return;
         }
