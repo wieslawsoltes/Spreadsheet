@@ -24,7 +24,7 @@
 
     <DockPanel>
       <TabStrip Name="TabStrip"
-                Items="{Binding Results}"
+                ItemsSource="{Binding Results}"
                 DockPanel.Dock="Bottom">
         <TabStrip.ItemTemplate>
           <DataTemplate DataType="openXml:OpenXmlResult">
@@ -32,9 +32,8 @@
           </DataTemplate>
         </TabStrip.ItemTemplate>
       </TabStrip>
-      <Carousel Items="{Binding Results}" 
-                SelectedItem="{Binding #TabStrip.SelectedItem}"
-                IsVirtualized="False">
+      <Carousel ItemsSource="{Binding Results}" 
+                SelectedItem="{Binding #TabStrip.SelectedItem}">
         <Carousel.DataTemplates>
           <DataTemplate DataType="openXml:OpenXmlResult">
             <SpreadsheetControl Items="{Binding Items}"

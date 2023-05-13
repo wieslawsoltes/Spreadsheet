@@ -13,7 +13,7 @@ using SpreadsheetSample.OpenXml;
 
 namespace SpreadsheetSample;
 
-public class MainView : UserControl
+public partial class MainView : UserControl
 {
     public ObservableCollection<OpenXmlResult> Results { get; set; }
 
@@ -26,11 +26,6 @@ public class MainView : UserControl
         DemoSpreadsheet();
 
         DataContext = this;
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 
     public async Task OpenSpreadsheet()

@@ -10,7 +10,6 @@ public partial class App
         base.OnParametersSet();
 
         WebAppBuilder.Configure<SpreadsheetSample.App>()
-            .UseReactiveUI()
             .SetupWithSingleViewLifetime();
     }
 }

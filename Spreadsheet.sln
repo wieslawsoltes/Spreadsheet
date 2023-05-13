@@ -51,6 +51,7 @@ ProjectSection(SolutionItems) = preProject
 	build\DocumentFormat.OpenXml.props = build\DocumentFormat.OpenXml.props
 	build\Avalonia.Web.Blazor.props = build\Avalonia.Web.Blazor.props
 	build\Avalonia.Themes.Fluent.props = build\Avalonia.Themes.Fluent.props
+	build\Avalonia.Controls.ItemsRepeater.props = build\Avalonia.Controls.ItemsRepeater.props
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet.UnitTests", "tests\Spreadsheet.UnitTests\Spreadsheet.UnitTests.csproj", "{77965AB6-3756-4ED0-BE3D-FF0EA4CEFCE8}"

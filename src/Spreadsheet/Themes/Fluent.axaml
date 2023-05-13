@@ -16,7 +16,7 @@
                         Grid.Column="1"
                         Grid.Row="0">
             <ColumnHeadersPresenter Name="PART_ColumnHeadersItemsRepeater"
-                                    Items="{TemplateBinding Columns}"
+                                    ItemsSource="{TemplateBinding Columns}"
                                     Tag="{TemplateBinding}"
                                     ClipToBounds="False">
               <ColumnHeadersPresenter.Layout>
@@ -36,7 +36,7 @@
           </ScrollViewer>
 
           <RowHeadersPresenter Name="PART_RowHeadersItemsRepeater"
-                               Items="{TemplateBinding Rows}"
+                               ItemsSource="{TemplateBinding Rows}"
                                Tag="{TemplateBinding}"
                                Grid.Column="0"
                                Grid.Row="1">
@@ -58,7 +58,7 @@
           </RowHeadersPresenter>
 
           <RowsPresenter Name="PART_RowsItemsRepeater"
-                         Items="{TemplateBinding Rows}"
+                         ItemsSource="{TemplateBinding Rows}"
                          Tag="{TemplateBinding}"
                          Grid.Column="1"
                          Grid.Row="1">
@@ -70,7 +70,7 @@
             <RowsPresenter.ItemTemplate>
               <DataTemplate DataType="Row">
                 <CellsPresenter Name="PART_CellsItemsRepeater"
-                                Items="{Binding #PART_RowsItemsRepeater.Tag.Columns}"
+                                ItemsSource="{Binding #PART_RowsItemsRepeater.Tag.Columns}"
                                 Height="{Binding Height}"
                                 ClipToBounds="False">
                   <CellsPresenter.Layout>
@@ -126,11 +126,8 @@
                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                         AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
             <ItemsPresenter Name="PART_ItemsPresenter"
-                            Items="{TemplateBinding Items}"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Margin="{TemplateBinding Padding}"
-                            VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                            Margin="{TemplateBinding Padding}" />
           </ScrollViewer>
         </Border>
       </ControlTemplate>
@@ -158,11 +155,8 @@
                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                         AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
             <ItemsPresenter Name="PART_ItemsPresenter"
-                            Items="{TemplateBinding Items}"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Margin="{TemplateBinding Padding}"
-                            VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                            Margin="{TemplateBinding Padding}" />
           </ScrollViewer>
         </Border>
       </ControlTemplate>

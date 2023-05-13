@@ -1,8 +1,10 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="SpreadsheetSample.App">
+             x:Class="SpreadsheetSample.App"
+             Name="SpreadsheetSample"
+             RequestedThemeVariant="Light">
   <Application.Styles>
-    <FluentTheme Mode="Light" />
+    <FluentTheme />
     <StyleInclude Source="avares://Spreadsheet/Themes/Fluent.axaml" />
   </Application.Styles>
 </Application>
